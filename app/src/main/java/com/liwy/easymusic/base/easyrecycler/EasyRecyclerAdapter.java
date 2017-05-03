@@ -55,7 +55,7 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyHo
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return  list != null ? list.size() : 0;
     }
 
 

@@ -3,11 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/ll_item_view"
-    android:layout_height="wrap_content">
+    android:layout_height="70dp">
     <LinearLayout
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
         <RelativeLayout
             android:padding="10dp"
@@ -16,54 +16,35 @@
             <ImageView
                 android:id="@+id/iv_music"
                 android:scaleType="centerCrop"
-                android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
 
             <TextView
                 android:text="音乐名称"
                 android:layout_toRightOf="@+id/iv_music"
                 android:id="@+id/tv_music_name"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:layout_marginTop="1dp"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
+                android:layout_alignParentTop="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:text="评分8.9"
-                android:layout_below="@+id/tv_music_name"
-                android:layout_toRightOf="@+id/iv_music"
-                android:id="@+id/tv_music_grade"
-                android:textColor="@color/text_gray_6"
-                android:textSize="12sp"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="25dp" />
 
             <TextView
                 android:text="歌手"
-                android:layout_below="@+id/tv_music_grade"
                 android:layout_toRightOf="@+id/iv_music"
                 android:id="@+id/tv_music_art"
                 android:textColor="@color/text_gray_6"
                 android:textSize="12sp"
-                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="25dp" />
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/item_delete"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:background="#88ff0000"
-            android:gravity="center"
-            android:text="删除"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <View

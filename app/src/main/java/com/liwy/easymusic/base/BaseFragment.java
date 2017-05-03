@@ -2,38 +2,24 @@ package com.liwy.easymusic.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.liwy.easymusic.base.presenter.BaseFragmentPresenter;
-import com.liwy.easymusic.base.presenter.IPresenter;
 import com.liwy.easymusic.base.view.IView;
-import com.liwy.easymusic.common.ToastUtils;
-
-import java.util.HashSet;
+import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by liwy on 2016/12/9.
  */
 
-public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Fragment implements IView {
-    private HashSet<IPresenter> mPresenters = new HashSet<IPresenter>();
+public abstract class BaseFragment<T extends BaseFragmentPresenter> extends EasyFragment implements IView {
     public T mPresenter;
-    public Activity mActivity;
-    public Context mContext;
-    private Unbinder unbinder;
-    private String title;
-    private int iconId;
-
     // 获取presenter
     protected  BaseFragmentPresenter getPresenter(){
         return mPresenter;
@@ -41,17 +27,24 @@ public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Frag
     //初始化presenter
     protected abstract void  initPresenter();
 
-    //获取LayoutId
-    protected abstract int getLayoutResId();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initPresenter();
+        mContext = context;
+        mActivity = getActivity();
+        mPresenter.setContext(context);
+        mPresenter.setmActivity(mActivity);
+        mPresenter.onAttach(context);
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutResId(), container, false);
-        mActivity = (Activity) getActivity();
-        mContext = getContext();
         unbinder = ButterKnife.bind(this,view);
-        initPresenter();
+        mPresenter.onCreateView(inflater,container,savedInstanceState);
         return view;
     }
     @Override
@@ -76,11 +69,13 @@ public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Frag
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+        mPresenter.onViewCreated(view,savedInstanceState);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.onCreate();
     }
 
     @Override
@@ -99,51 +94,17 @@ public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Frag
     public void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
-        unbinder.unbind();
     }
 
-
-    // toast提示
-    public void showToast(String msg) {
-        ToastUtils.showToast(getContext().getApplicationContext(),msg);
-    }
-    // 跳转至下个页面
-    public void turnToActivity(Class className){
-        Intent intent = new Intent(mContext,className);
-        startActivity(intent);
-    }
-    // 跳转至下个页面并传参
-    public void turnToActivity(Class className,Bundle bundle){
-        Intent intent = new Intent(mContext,className);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.onDestroyView();
     }
 
-    // 跳转至下个页面并销毁
-    public void turnToActivityWithFinish(Class className){
-        Intent intent = new Intent(mContext,className);
-        startActivity(intent);
-    }
-    // 跳转至下个页面并传参，并销毁
-    public void turnToActivityWithFinish(Class className,Bundle bundle){
-        Intent intent = new Intent(mContext,className);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getIconId() {
-        return iconId;
-    }
-
-    public void setIconId(int iconId) {
-        this.iconId = iconId;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mPresenter.onDetach();
     }
 }

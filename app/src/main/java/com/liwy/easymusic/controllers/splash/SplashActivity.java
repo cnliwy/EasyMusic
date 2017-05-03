@@ -19,6 +19,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     public void initView() {
         deviceTv.setText(getString(R.string.author));
     }
+
     // 初始化presenter
     @Override
     protected void initPresenter() {

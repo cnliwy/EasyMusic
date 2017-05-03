@@ -2,12 +2,17 @@ package com.liwy.easymusic.common.http;
 
 
 import com.liwy.easymusic.entity.MusicRoot;
+import com.liwy.easymusic.model.OnlineMusicList;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,7 +25,9 @@ import rx.schedulers.Schedulers;
  */
 
 public class HttpUtils {
-    public static final String BASE_URL = "https://api.douban.com/";
+//    public static final String BASE_URL = "https://api.douban.com/";
+    private static final String BASE_URL = "http://tingapi.ting.baidu.com/";
+    private static final String METHOD_GET_MUSIC_LIST = "baidu.ting.billboard.billList";
     private static final int DEFAULT_TIMEOUT = 5;//默认超时时间
     private Retrofit retrofit;
     private HttpApi httpService;
@@ -29,9 +36,19 @@ public class HttpUtils {
 
     //构造方法私有
     private HttpUtils() {
+//        .addHeader("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)")
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request originalRequest = chain.request();
+                Request broswerRequest = originalRequest.newBuilder()
+                        .header("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)")
+                        .build();
+                return chain.proceed(broswerRequest);
+            }
+        });
         // json解析实例
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
@@ -56,6 +73,10 @@ public class HttpUtils {
     // 获取音乐列表
     public void searchMusicByTag(String tag, Subscriber<MusicRoot> subscriber){
         httpService.searchMusicByTag(tag).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
+    }
+
+    public void searchMusicByConditions(String type, int size, int offset,Subscriber<OnlineMusicList> subscriber){
+        httpService.searchMusicByConditions(type,size,offset,METHOD_GET_MUSIC_LIST).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
     }
 
 

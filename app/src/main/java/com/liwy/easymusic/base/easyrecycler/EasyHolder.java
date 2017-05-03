@@ -27,7 +27,6 @@ public class EasyHolder extends RecyclerView.ViewHolder {
 
     public EasyHolder(View itemView,int position) {
         super(itemView);
-        Logger.d(itemView.getClass().getName());
         this.mPosition = position;
         mConvertView = itemView;
         this.mViews = new SparseArray<View>();

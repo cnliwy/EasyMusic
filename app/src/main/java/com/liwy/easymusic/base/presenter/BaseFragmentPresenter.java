@@ -25,17 +25,20 @@ public class BaseFragmentPresenter<V extends IView> implements IFragmentPresente
         this.mView = view;
     }
 
-    public void init(V view,Context context){
-        this.mView = view;
-        this.mContext = context;
-    }
+//    public void init(V view,Context context){
+//        this.mView = view;
+//        this.mContext = context;
+//    }
+//    public void init(V view,Context context,Activity activity){
+//        this.mView = view;
+//        this.mContext = context;
+//        this.mActivity = activity;
+//    }
 
-    public void init(V view,Context context,Activity activity){
-        this.mView = view;
-        this.mContext = context;
-        this.mActivity = activity;
-    }
+    @Override
+    public void onAttach(Context context) {
 
+    }
 
     @Override
     public void onStart() {
@@ -63,7 +66,22 @@ public class BaseFragmentPresenter<V extends IView> implements IFragmentPresente
     }
 
     @Override
+    public void onDestroyView() {
+
+    }
+
+    @Override
+    public void onDetach() {
+
+    }
+
+    @Override
     public void onCreate() {
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
 
     }
 
@@ -73,8 +91,8 @@ public class BaseFragmentPresenter<V extends IView> implements IFragmentPresente
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+    public void onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
     }
 
     @Override
