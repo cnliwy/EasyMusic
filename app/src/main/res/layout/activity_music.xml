@@ -8,4 +8,5 @@
 
     <include layout="@layout/activity_music_include"></include>
     <include layout="@layout/layout_slide_menu"/>
+
 </android.support.v4.widget.DrawerLayout>

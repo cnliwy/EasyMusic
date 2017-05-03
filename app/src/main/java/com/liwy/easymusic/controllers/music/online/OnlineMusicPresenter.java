@@ -14,8 +14,9 @@ import com.liwy.easymusic.common.http.subscribers.SubscriberOnNextListener;
 import com.liwy.easymusic.model.Music;
 import com.liwy.easymusic.model.OnlineMusic;
 import com.liwy.easymusic.model.OnlineMusicList;
+import com.liwy.easymusic.service.playmusic.AppCache;
 import com.liwy.easymusic.service.playmusic.PlayOnlineMusic;
-import com.orhanobut.logger.Logger;
+import com.liwy.easymusic.service.playmusic.PlayService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
                 public void onExecuteSuccess(Music music) {
 //                    mProgressDialog.cancel();
                     getPlayService().play(music);
-                    ToastUtils.show(getString(R.string.now_play, music.getTitle()));
+                    ToastUtils.show(mContext.getString(R.string.now_play, music.getTitle()));
                 }
 
                 @Override
@@ -104,5 +105,13 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
         if (subscriber.isUnsubscribed()){
             subscriber.unsubscribe();
         }
+    }
+
+    public PlayService getPlayService() {
+        PlayService playService = AppCache.getPlayService();
+        if (playService == null) {
+            throw new NullPointerException("play service is null");
+        }
+        return playService;
     }
 }

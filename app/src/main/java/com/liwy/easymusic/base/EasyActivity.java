@@ -43,7 +43,7 @@ public abstract class EasyActivity extends AppCompatActivity {
     public Context mContext;
     private OnLeftClickListener onLeftClickListener;                                // 左侧返回按钮点击事件
     private OnRightClickListener onRightClickListener;                              // 右侧标题点击事件
-    private static final int defalutBackIconResID = R.drawable.btn_back;          // 左侧返回按钮的默认图片
+    private static final int defalutBackIconResID = R.drawable.ic_menu;          // 左侧返回按钮的默认图片
     // toolbar标题显示位置
     protected static final int TOOLBAR_MODE_NONE = 0;                             // 不显示标题
     protected static final int TOOLBAR_MODE_LEFT = 1;                             // 标题居左侧

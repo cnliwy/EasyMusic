@@ -3,6 +3,8 @@ package com.liwy.easymusic.service.playmusic;
 import android.app.Activity;
 import android.text.TextUtils;
 
+import com.liwy.easymusic.common.old.HttpCallback;
+import com.liwy.easymusic.common.old.HttpClient;
 import com.liwy.easymusic.common.utils.FileUtils;
 import com.liwy.easymusic.model.DownloadInfo;
 import com.liwy.easymusic.model.Music;

@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void initPresenter() {
         mPresenter = new SplashPresenter();
-        mPresenter.init(this);
+        mPresenter.init(this,this);
     }
 
     @Override
