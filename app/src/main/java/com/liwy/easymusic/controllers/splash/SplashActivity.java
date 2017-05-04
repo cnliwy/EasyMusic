@@ -1,5 +1,6 @@
 package com.liwy.easymusic.controllers.splash;
 
+import android.support.annotation.NonNull;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -7,6 +8,11 @@ import android.widget.TextView;
 
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.base.BaseActivity;
+import com.orhanobut.logger.Logger;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -24,7 +30,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void initPresenter() {
         mPresenter = new SplashPresenter();
-        mPresenter.init(this,this);
+        mPresenter.init(this,this,this);
     }
 
     @Override
@@ -35,4 +41,30 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         return R.layout.activity_splash;
     }
+
+    // 请求权限结果返回
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        AndPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, permissionlistener);
+    }
+
+    private PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, List<String> grantPermissions) {
+            if (requestCode == 100) {
+                mPresenter.checkService();
+            } else {
+
+            }
+        }
+
+        @Override
+        public void onFailed(int requestCode, List<String> deniedPermissions) {
+            if (requestCode == 100) {
+               finish();
+            } else {
+
+            }
+        }
+    };
 }

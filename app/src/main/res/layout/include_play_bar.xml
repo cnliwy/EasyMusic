@@ -3,7 +3,8 @@
     android:id="@+id/fl_play_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/play_bar_height"
-    android:background="@drawable/play_bar_bg_selector">
+    android:background="@color/translucent_white_96p">
+    <!--android:background="@drawable/play_bar_bg_selector">-->
 
     <LinearLayout
         android:layout_width="match_parent"

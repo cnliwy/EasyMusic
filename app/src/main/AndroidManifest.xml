@@ -27,8 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.music.MusicActivity" />
-        <activity android:name=".controllers.joke.JokeActivity" />
+        <activity android:name=".controllers.music.MusicActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".controllers.joke.JokeActivity" android:launchMode="singleTask" />
         <service android:name=".service.playmusic.PlayService" />
 
         <!--<receiver android:name=".receiver.DownloadReceiver">-->
