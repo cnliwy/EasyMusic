@@ -27,10 +27,7 @@ public class HttpJokeUtils {
     private static final String showapi_appid = "37278";
     private static final String showapi_app_secret = "63d6dc0aa6e1447f85caf2678d2c3956";
     private static final String showapi_sign = showapi_app_secret;
-    private static final String showapi_timestamp = "http://route.showapi.com/";
-    private static final String showapi_sign_method = "http://route.showapi.com/";
-    private static final String showapi_res_gzip = "http://route.showapi.com/";
-    private static final String maxResult = "30";
+    private static final int maxResult = 15;
     private static final int DEFAULT_TIMEOUT = 5;//默认超时时间
     private Retrofit retrofit;
     private HttpApi httpService;
@@ -80,7 +77,7 @@ public class HttpJokeUtils {
      * @param subscriber
      */
     public void getJokes(String time, String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
-        httpService.getJokes(time,page,maxResult,showapi_appid,showapi_sign)
+        httpService.getJokes(time,page,maxResult+"",showapi_appid,showapi_sign)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

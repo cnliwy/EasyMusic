@@ -1,5 +1,7 @@
 package com.liwy.easymusic.model.happy;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,20 @@ public class JokeResult{
     private int allPages;
     private int currentPage;
     private int maxResult;
+
+    @SerializedName("contentlist")
     private List<Joke> contentList;
+
+    @Override
+    public String toString() {
+        return "JokeResult{" +
+                "allNum=" + allNum +
+                ", allPages=" + allPages +
+                ", currentPage=" + currentPage +
+                ", maxResult=" + maxResult +
+                ", contentList=" + (contentList!=null ? contentList.size():0) +
+                '}';
+    }
 
     public int getAllNum() {
         return allNum;

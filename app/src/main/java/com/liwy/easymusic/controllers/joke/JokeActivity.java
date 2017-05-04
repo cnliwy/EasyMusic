@@ -33,6 +33,13 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
         initSlideMenu();
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setFooterResource(R.layout.item_footer);
+        listView.setLoadMoreEnable(true);
+        listView.setOnLoadMoreListener(new EasyRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void loadMoreListener() {
+                mPresenter.loadMore();
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
