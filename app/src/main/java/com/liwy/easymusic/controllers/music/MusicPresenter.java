@@ -1,27 +1,30 @@
 package com.liwy.easymusic.controllers.music;
 
 
-import android.content.Intent;
+import android.content.ComponentName;
+import android.media.AudioManager;
 
-import com.liwy.easymusic.R;
-import com.liwy.easymusic.adapter.MusicAdapter;
 import com.liwy.easymusic.base.presenter.BasePresenter;
-import com.liwy.easymusic.common.http.HttpUtils;
-import com.liwy.easymusic.common.http.subscribers.ProgressSubscriber;
-import com.liwy.easymusic.common.http.subscribers.SubscriberOnNextListener;
-import com.liwy.easymusic.model.OnlineMusic;
-import com.liwy.easymusic.model.OnlineMusicList;
-import com.liwy.easymusic.service.playmusic.AppCache;
+import com.liwy.easymusic.receiver.RemoteControlReceiver;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import static android.content.Context.AUDIO_SERVICE;
 
 
 public class MusicPresenter extends BasePresenter<MusicView> {
+    private AudioManager mAudioManager;
+    private ComponentName mRemoteReceiver;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        registerReceiver();
     }
+
+
+    private void registerReceiver() {
+        mAudioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
+        mRemoteReceiver = new ComponentName(mContext.getPackageName(), RemoteControlReceiver.class.getName());
+        mAudioManager.registerMediaButtonEventReceiver(mRemoteReceiver);
+    }
+
 }

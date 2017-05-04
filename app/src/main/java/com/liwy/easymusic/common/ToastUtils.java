@@ -10,7 +10,7 @@ import com.liwy.easymusic.MyApplication;
  */
 
 public class ToastUtils {
-    private static Context context = MyApplication.getInstance().getApplicationContext();
+    private static Context context;
     /** 之前显示的内容 */
     private static String oldMsg ;
     /** Toast对象 */
@@ -51,6 +51,7 @@ public class ToastUtils {
      * @param message
      */
     public static void show(String message){
+        if (context == null) context = MyApplication.getInstance().getApplicationContext();
 
         if(toast == null){
             oneTime = System.currentTimeMillis();

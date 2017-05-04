@@ -10,7 +10,7 @@ import com.liwy.easymusic.base.presenter.BaseFragmentPresenter;
 import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.http.HttpUtils;
 import com.liwy.easymusic.common.http.subscribers.ProgressSubscriber;
-import com.liwy.easymusic.common.http.subscribers.SubscriberOnNextListener;
+import com.liwy.easymusic.common.http.subscribers.HttpCallback;
 import com.liwy.easymusic.model.Music;
 import com.liwy.easymusic.model.OnlineMusic;
 import com.liwy.easymusic.model.OnlineMusicList;
@@ -42,7 +42,7 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
 
     public void getMusicList(int page, final boolean isRefresh){
         musicType = new Random().nextInt(musicTypes.length);
-        subscriber = new ProgressSubscriber<OnlineMusicList>(new SubscriberOnNextListener<OnlineMusicList>() {
+        subscriber = new ProgressSubscriber<OnlineMusicList>(new HttpCallback<OnlineMusicList>() {
             @Override
             public void onNext(OnlineMusicList onlineMusicList) {
                 if (isRefresh){
@@ -53,6 +53,11 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
                 }
                 currentPage++;
                 initAdapter(isRefresh);
+                mView.finishRefresh();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
                 mView.finishRefresh();
             }
         },mContext,true);
@@ -67,9 +72,11 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
             adapter.notifyDataSetChanged();
         }
     }
-
+    // item点击事件
     public void onItemClick(int position){
-        playMusic(dataList.get(position));
+        AppCache.getPlayService().setPlayNetStyle(true);
+        AppCache.getPlayService().setOnlineMusicList(dataList);
+        AppCache.getPlayService().playOnlieMusic(position);
     }
 
     public void playMusic(OnlineMusic onlineMusic){
@@ -83,7 +90,6 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
                 public void onExecuteSuccess(Music music) {
 //                    mProgressDialog.cancel();
                     getPlayService().play(music);
-                    ToastUtils.show(mContext.getString(R.string.now_play, music.getTitle()));
                 }
 
                 @Override

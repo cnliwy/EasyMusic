@@ -18,9 +18,8 @@ import com.liwy.easymusic.model.SongListInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by hzwangchenyan on 2016/11/23.
+ * 音乐播放缓存类
  */
 public class AppCache {
     private Context mContext;
@@ -39,7 +38,7 @@ public class AppCache {
         private static AppCache sAppCache = new AppCache();
     }
 
-    private static AppCache getInstance() {
+    public static AppCache getInstance() {
         return SingletonHolder.sAppCache;
     }
 

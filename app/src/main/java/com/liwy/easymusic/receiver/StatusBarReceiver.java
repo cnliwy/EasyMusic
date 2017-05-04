@@ -8,10 +8,6 @@ import android.text.TextUtils;
 import com.liwy.easymusic.constants.Actions;
 import com.liwy.easymusic.service.playmusic.PlayService;
 
-
-/**
- * Created by wcy on 2017/4/18.
- */
 public class StatusBarReceiver extends BroadcastReceiver {
     public static final String ACTION_STATUS_BAR = "me.wcy.music.STATUS_BAR_ACTIONS";
     public static final String EXTRA = "extra";

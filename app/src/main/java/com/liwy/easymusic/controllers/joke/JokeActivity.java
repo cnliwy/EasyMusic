@@ -1,4 +1,4 @@
-package com.liwy.easymusic.controllers.contacts;
+package com.liwy.easymusic.controllers.joke;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,7 +6,7 @@ import android.view.Gravity;
 
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.adapter.ContactsAdapter;
+import com.liwy.easymusic.adapter.JokeAdapter;
 import com.liwy.easymusic.base.BaseActivity;
 import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
 
@@ -14,7 +14,7 @@ import butterknife.BindView;
 
 
 
-public class ContactsActivity extends BaseActivity<ConstactsPresenter> implements ConstactsView {
+public class JokeActivity extends BaseActivity<JokePresenter> implements JokeView {
 
     @BindView(R.id.tv_contacts)
     public EasyRecyclerView listView;
@@ -24,7 +24,7 @@ public class ContactsActivity extends BaseActivity<ConstactsPresenter> implement
 
     @Override
     public void initView() {
-        initToolbarWithBack(TOOLBAR_MODE_CENTER, "通讯录", 0, new OnLeftClickListener() {
+        initToolbarWithBack(TOOLBAR_MODE_CENTER, "开心一刻", 0, new OnLeftClickListener() {
             @Override
             public void onLeftClick() {
                 drawerLayout.openDrawer(Gravity.LEFT);
@@ -45,7 +45,7 @@ public class ContactsActivity extends BaseActivity<ConstactsPresenter> implement
     // init presenter
     @Override
     protected void initPresenter() {
-        mPresenter = new ConstactsPresenter();
+        mPresenter = new JokePresenter();
         mPresenter.init(this,this);
     }
 
@@ -55,7 +55,7 @@ public class ContactsActivity extends BaseActivity<ConstactsPresenter> implement
     }
 
     @Override
-    public void setAdapter(ContactsAdapter adapter) {
+    public void setAdapter(JokeAdapter adapter) {
         listView.setAdapter(adapter);
         if (swipeRefreshLayout.isRefreshing()){
             finishRefresh();

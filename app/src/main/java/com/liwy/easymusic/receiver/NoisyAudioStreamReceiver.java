@@ -10,7 +10,6 @@ import com.liwy.easymusic.service.playmusic.PlayService;
 
 /**
  * 来电/耳机拔出时暂停播放
- * Created by wcy on 2016/1/23.
  */
 public class NoisyAudioStreamReceiver extends BroadcastReceiver {
 

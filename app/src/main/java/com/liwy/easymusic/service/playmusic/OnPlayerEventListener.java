@@ -5,7 +5,6 @@ import com.liwy.easymusic.model.Music;
 
 /**
  * 播放进度监听器
- * Created by hzwangchenyan on 2015/12/17.
  */
 public interface OnPlayerEventListener {
     /**

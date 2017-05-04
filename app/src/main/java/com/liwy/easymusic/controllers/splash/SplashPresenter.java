@@ -8,13 +8,18 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.liwy.easymusic.base.presenter.BasePresenter;
+import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.controllers.music.MusicActivity;
+import com.liwy.easymusic.model.Music;
 import com.liwy.easymusic.service.playmusic.AppCache;
 import com.liwy.easymusic.service.playmusic.PlayService;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -42,22 +47,59 @@ public class SplashPresenter extends BasePresenter<SplashView> {
            @Override
            public void call(Long aLong) {
                mView.turnToActivityWithFinish(MusicActivity.class);
+//               mView.turnToActivity(MusicActivity.class);
            }
        });
    }
 
     private void checkService() {
         if (AppCache.getPlayService() == null) {
-            bindService();
+            bindService2();
+        }else {
+            toMain();
         }
-        toMain();
     }
 
     private void bindService() {
         Intent intent = new Intent();
         intent.setClass(mContext, PlayService.class);
         mPlayServiceConnection = new PlayServiceConnection();
-        mContext.bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+        boolean flag = mContext.bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+    public void bindService2(){
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, PlayService.class);
+                mPlayServiceConnection = new PlayServiceConnection();
+                boolean flag = mContext.bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+                if (flag){
+                    subscriber.onNext("1");
+                }else{
+                    subscriber.onNext("0");
+                }
+
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                if ("0".equals(s)){
+                    ToastUtils.show("无法启动");
+                }else{
+                    toMain();
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        if (mPlayServiceConnection != null) {
+            mContext.unbindService(mPlayServiceConnection);
+        }
+        super.onDestroy();
     }
 
     private class PlayServiceConnection implements ServiceConnection {

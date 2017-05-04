@@ -12,7 +12,7 @@ import com.liwy.easymusic.model.Music;
 
 
 /**
- * Created by hzwangchenyan on 2017/1/20.
+ * 播放本地音乐
  */
 public abstract class PlayMusic implements IExecutor<Music> {
     private Activity mActivity;

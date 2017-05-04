@@ -27,7 +27,7 @@ import java.util.List;
 
 
 /**
- * Created by wcy on 2017/4/18.
+ * 通知操作类
  */
 public class Notifier {
     private static final int NOTIFICATION_ID = 0x111;
@@ -81,7 +81,8 @@ public class Notifier {
         remoteViews.setTextViewText(R.id.tv_title, title);
         remoteViews.setTextViewText(R.id.tv_subtitle, subtitle);
 
-        boolean isLightNotificationTheme = isLightNotificationTheme(playService);
+//        boolean isLightNotificationTheme = isLightNotificationTheme(playService);
+        boolean isLightNotificationTheme = true;
 
         Intent playIntent = new Intent(StatusBarReceiver.ACTION_STATUS_BAR);
         playIntent.putExtra(StatusBarReceiver.EXTRA, StatusBarReceiver.EXTRA_PLAY_PAUSE);

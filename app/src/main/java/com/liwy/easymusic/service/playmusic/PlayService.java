@@ -13,32 +13,40 @@ import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.liwy.easymusic.R;
+import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.utils.MusicUtils;
 import com.liwy.easymusic.common.utils.Preferences;
 import com.liwy.easymusic.constants.Actions;
 import com.liwy.easymusic.enums.PlayModeEnum;
 import com.liwy.easymusic.model.Music;
+import com.liwy.easymusic.model.OnlineMusic;
 import com.liwy.easymusic.receiver.NoisyAudioStreamReceiver;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import static com.liwy.easymusic.service.playmusic.AppCache.getPlayService;
+
 
 /**
  * 音乐播放后台服务
- * Created by wcy on 2015/11/27.
  */
 public class PlayService extends Service implements MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
     private static final String TAG = "Service";
     private static final long TIME_UPDATE = 100L;
     private List<Music> mMusicList;
+    private List<OnlineMusic> mOnlineMusicList;
     private MediaPlayer mPlayer = new MediaPlayer();
     private IntentFilter mNoisyFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
     private NoisyAudioStreamReceiver mNoisyReceiver = new NoisyAudioStreamReceiver();
     private Handler mHandler = new Handler();
     private AudioManager mAudioManager;
     private OnPlayerEventListener mListener;
+    // 网络播放模式（在线播放还是本地播放）false 本地播放  true 网络播放
+    private boolean playNetStyle = false;
     // 正在播放的歌曲[本地|网络]
     private Music mPlayingMusic;
     // 正在播放的本地歌曲的序号
@@ -98,6 +106,14 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         }
     }
 
+    /**
+     * 更新在线缓存列表
+     * @param list
+     */
+    public void updateOnlineMusicList(List<OnlineMusic> list){
+        this.mOnlineMusicList = list;
+    }
+
     @Override
     public void onCompletion(MediaPlayer mp) {
         next();
@@ -139,6 +155,40 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 播放在线音乐
+     * @param mPlayingPosition
+     */
+    public void playOnlieMusic(int mPlayingPosition) {
+        this.mPlayingPosition = mPlayingPosition;
+        OnlineMusic onlineMusic = mOnlineMusicList.get(mPlayingPosition);
+        playOnlineMusic(onlineMusic);
+    }
+
+    /**
+     * 播放在线音乐
+     * @param onlineMusic
+     */
+    public void playOnlineMusic(OnlineMusic onlineMusic){
+        new PlayOnlineMusic(null, onlineMusic) {
+            @Override
+            public void onPrepare() {
+
+            }
+
+            @Override
+            public void onExecuteSuccess(Music music) {
+                getPlayService().play(music);
+            }
+
+            @Override
+            public void onExecuteFail(Exception e) {
+//                    mProgressDialog.cancel();
+                ToastUtils.show(R.string.unable_to_play);
+            }
+        }.execute();
     }
 
     private MediaPlayer.OnPreparedListener mPreparedListener = new MediaPlayer.OnPreparedListener() {
@@ -199,7 +249,22 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         }
     }
 
+    /**
+     * 下一首
+     */
     public void next() {
+        if (playNetStyle){
+            netNext();
+        }else {
+            localNext();
+        }
+
+    }
+
+    /**
+     * 本地列表的自动播放
+     */
+    private void localNext(){
         if (mMusicList.isEmpty()) {
             return;
         }
@@ -216,6 +281,30 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             case LOOP:
             default:
                 play(mPlayingPosition + 1);
+                break;
+        }
+    }
+
+    /**
+     * 网络播放的自动播放
+     */
+    private void netNext(){
+        if (mOnlineMusicList.isEmpty()) {
+            return;
+        }
+
+        PlayModeEnum mode = PlayModeEnum.valueOf(Preferences.getPlayMode());
+        switch (mode) {
+            case SHUFFLE:
+                mPlayingPosition = new Random().nextInt(mOnlineMusicList.size());
+                playOnlieMusic(mPlayingPosition);
+                break;
+            case SINGLE:
+                playOnlieMusic(mPlayingPosition);
+                break;
+            case LOOP:
+            default:
+                playOnlieMusic(mPlayingPosition + 1);
                 break;
         }
     }
@@ -373,5 +462,21 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         public PlayService getService() {
             return PlayService.this;
         }
+    }
+
+    public boolean isPlayNetStyle() {
+        return playNetStyle;
+    }
+
+    public void setPlayNetStyle(boolean playNetStyle) {
+        this.playNetStyle = playNetStyle;
+    }
+
+    public List<OnlineMusic> getOnlineMusicList() {
+        return mOnlineMusicList;
+    }
+
+    public void setOnlineMusicList(List<OnlineMusic> mOnlineMusicList) {
+        this.mOnlineMusicList = mOnlineMusicList;
     }
 }

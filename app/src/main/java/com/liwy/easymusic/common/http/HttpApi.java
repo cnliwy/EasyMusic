@@ -5,6 +5,8 @@ import com.liwy.easymusic.entity.MovieEntity;
 import com.liwy.easymusic.entity.MusicRoot;
 import com.liwy.easymusic.entity.Musics;
 import com.liwy.easymusic.model.OnlineMusicList;
+import com.liwy.easymusic.model.happy.BaseHappyResult;
+import com.liwy.easymusic.model.happy.JokeResult;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -29,6 +31,10 @@ public interface HttpApi {
     @GET("v1/restserver/ting")
     Observable<OnlineMusicList> searchMusicByConditions(@Query("type")String type, @Query("size")int size, @Query("offset")int offset, @Query("method")String method);
 
-
+    @GET("341-1/")
+    Observable<BaseHappyResult<JokeResult>> getJokes(@Query("time") String time, @Query("page") String page,
+                                         @Query("maxResult") String maxResult,
+                                         @Query("showapi_appid") String showapi_appid,
+                                         @Query("showapi_sign") String showapi_sign);
 
 }

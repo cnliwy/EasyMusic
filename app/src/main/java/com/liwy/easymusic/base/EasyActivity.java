@@ -22,7 +22,7 @@ import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.SlideItemAdapter;
 import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.utils.ScreenUtils;
-import com.liwy.easymusic.controllers.contacts.ContactsActivity;
+import com.liwy.easymusic.controllers.joke.JokeActivity;
 import com.liwy.easymusic.controllers.music.MusicActivity;
 import com.liwy.easymusic.entity.SlideItem;
 import com.umeng.analytics.MobclickAgent;
@@ -72,11 +72,10 @@ public abstract class EasyActivity extends AppCompatActivity {
 
     public List<SlideItem> mItems = new ArrayList<SlideItem>(
             Arrays.asList(
-                    new SlideItem(R.mipmap.ic_launcher, "听雨楼"),
-                    new SlideItem(R.mipmap.ic_launcher, "通讯录"),
-                    new SlideItem(R.mipmap.ic_launcher, "定时关闭音乐"),
-                    new SlideItem(R.mipmap.ic_launcher, "下载歌曲品质"),
-                    new SlideItem(R.mipmap.ic_launcher, "退出")
+                    new SlideItem(R.drawable.ic_slide_music, "听雨楼"),
+                    new SlideItem(R.drawable.ic_slide_happy, "欢乐谷"),
+                    new SlideItem(R.drawable.ic_slide_time, "定时关闭音乐"),
+                    new SlideItem(R.drawable.ic_slide_exit, "退出")
 
             ));
     /**
@@ -122,7 +121,7 @@ public abstract class EasyActivity extends AppCompatActivity {
                         turnToActivity(MusicActivity.class);
                         break;
                     case 2:
-                        turnToActivity(ContactsActivity.class);
+                        turnToActivity(JokeActivity.class);
                         break;
                     case 3:
                         break;

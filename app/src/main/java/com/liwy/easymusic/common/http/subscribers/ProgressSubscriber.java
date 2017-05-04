@@ -20,14 +20,14 @@ import rx.Subscriber;
  */
 public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener {
 
-    private SubscriberOnNextListener<T> mSubscriberOnNextListener;
+    private HttpCallback<T> mHttpCallback;
     private ProgressDialogHandler mProgressDialogHandler;
 
     private Context context;
     private boolean isShowDialog;
 
-    public ProgressSubscriber(SubscriberOnNextListener<T> mSubscriberOnNextListener, Context context,boolean isShowDialog) {
-        this.mSubscriberOnNextListener = mSubscriberOnNextListener;
+    public ProgressSubscriber(HttpCallback<T> mHttpCallback, Context context, boolean isShowDialog) {
+        this.mHttpCallback = mHttpCallback;
         this.context = context;
         this.isShowDialog = isShowDialog;
         mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
@@ -75,11 +75,14 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
             Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
         } else if (e instanceof ConnectException) {
             Toast.makeText(context, "网络中断，请检查您的网络状态", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+//        else {
+//            Toast.makeText(context, "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
         dismissProgressDialog();
-
+        if (mHttpCallback != null) {
+            mHttpCallback.onFail(e);
+        }
     }
 
     /**
@@ -89,8 +92,8 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
      */
     @Override
     public void onNext(T t) {
-        if (mSubscriberOnNextListener != null) {
-            mSubscriberOnNextListener.onNext(t);
+        if (mHttpCallback != null) {
+            mHttpCallback.onNext(t);
         }
     }
 

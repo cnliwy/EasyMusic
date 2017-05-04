@@ -15,7 +15,6 @@ import java.io.File;
 
 /**
  * 播放在线音乐
- * Created by wcy on 2016/1/3.
  */
 public abstract class PlayOnlineMusic extends PlayMusic {
     private OnlineMusic mOnlineMusic;

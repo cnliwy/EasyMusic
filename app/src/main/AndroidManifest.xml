@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".controllers.music.MusicActivity" />
-        <activity android:name=".controllers.contacts.ContactsActivity" />
+        <activity android:name=".controllers.joke.JokeActivity" />
         <service android:name=".service.playmusic.PlayService" />
 
         <!--<receiver android:name=".receiver.DownloadReceiver">-->

@@ -1,7 +1,7 @@
 package com.liwy.easymusic.service.playmusic;
 
 /**
- * Created by hzwangchenyan on 2017/1/20.
+ * http请求回调
  */
 public interface IExecutor<T> {
     void execute();

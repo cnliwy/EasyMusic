@@ -12,6 +12,7 @@ import com.liwy.easymusic.R;
 import com.liwy.easymusic.base.easyrecycler.EasyHolder;
 import com.liwy.easymusic.base.easyrecycler.EasyRecyclerAdapter;
 import com.liwy.easymusic.entity.Contact;
+import com.liwy.easymusic.model.happy.Joke;
 
 import java.util.List;
 import java.util.Random;
@@ -22,18 +23,18 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
  * Created by liwy on 2017/4/20.
  */
 
-public class ContactsAdapter extends EasyRecyclerAdapter<Contact> {
+public class JokeAdapter extends EasyRecyclerAdapter<Joke> {
     public static String[] colors = {"#FF427A","#F9B432","#5AD585","#0DB5DA","#FF583D"};
-    public ContactsAdapter(Context context) {
+    public JokeAdapter(Context context) {
         super(context);
     }
 
-    public ContactsAdapter(Context context, List<Contact> list) {
+    public JokeAdapter(Context context, List<Joke> list) {
         super(context, list);
     }
 
     @Override
-    public void convert(EasyHolder holder, Contact item) {
+    public void convert(EasyHolder holder, Joke item) {
         Button head = holder.getView(R.id.btn_head);
         Random random = new Random();
 
@@ -44,7 +45,7 @@ public class ContactsAdapter extends EasyRecyclerAdapter<Contact> {
         }else{
             drawable = mContext.getResources().getDrawable(R.drawable.round_button);
         }
-        int myOrder = getMyOrder(item.getName().charAt(0));
+        int myOrder = getMyOrder(item.getTitle().charAt(0));
         drawable.setColorFilter(Color.parseColor(colors[myOrder]),PorterDuff.Mode.MULTIPLY);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
             head.setBackground(drawable);
@@ -52,8 +53,8 @@ public class ContactsAdapter extends EasyRecyclerAdapter<Contact> {
             head.setBackgroundDrawable(drawable);
         }
 
-        head.setText(item.getName());
-        holder.setText(R.id.tv_contact_phone,item.getPhone() + "(" + myOrder + ")");
+        head.setText(item.getTitle());
+        holder.setText(R.id.tv_contact_phone,item.getContent());
     }
 
     @Override
