@@ -4,6 +4,10 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.liwy.easymusic.R;
+import com.liwy.easymusic.model.Music;
+import com.liwy.easymusic.service.playmusic.AppCache;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,9 +16,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.wcy.music.R;
-import me.wcy.music.application.AppCache;
-import me.wcy.music.model.Music;
 
 /**
  * 文件工具类

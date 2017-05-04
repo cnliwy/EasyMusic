@@ -5,7 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import me.wcy.music.R;
+import com.liwy.easymusic.R;
+
 
 /**
  * SharedPreferences工具类
