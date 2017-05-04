@@ -10,6 +10,7 @@ public class Joke {
     private String id;
     private int type;
     private String title;
+    private String img;
 
     @SerializedName("ct")
     private String time;
@@ -57,5 +58,13 @@ public class Joke {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

@@ -15,13 +15,13 @@ import java.util.List;
  * Created by liwy on 2017/4/20.
  */
 
-public class JokeAdapter extends EasyRecyclerAdapter<Joke> {
+public class TextJokeAdapter extends EasyRecyclerAdapter<Joke> {
 
-    public JokeAdapter(Context context) {
+    public TextJokeAdapter(Context context) {
         super(context);
     }
 
-    public JokeAdapter(Context context, List<Joke> list) {
+    public TextJokeAdapter(Context context, List<Joke> list) {
         super(context, list);
     }
 
@@ -35,7 +35,7 @@ public class JokeAdapter extends EasyRecyclerAdapter<Joke> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.item_joke;
+        return R.layout.item_textjoke;
     }
 
     public static int getMyOrder(char value){

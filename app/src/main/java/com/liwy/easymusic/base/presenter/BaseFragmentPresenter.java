@@ -109,11 +109,11 @@ public class BaseFragmentPresenter<V extends IView> implements IFragmentPresente
     }
 
 
-    public Activity getmActivity() {
+    public Activity getActivity() {
         return mActivity;
     }
 
-    public void setmActivity(Activity mActivity) {
+    public void setActivity(Activity mActivity) {
         this.mActivity = mActivity;
     }
 

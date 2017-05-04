@@ -1,26 +1,24 @@
 package com.liwy.easymusic.controllers.joke;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 
-
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.adapter.JokeAdapter;
+import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.controllers.joke.imgjoke.ImgJokeFragment;
+import com.liwy.easymusic.controllers.joke.textjoke.TextJokeFragment;
 
 import butterknife.BindView;
 
 
 
 public class JokeActivity extends BaseActivity<JokePresenter> implements JokeView {
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
 
-    @BindView(R.id.tv_contacts)
-    public EasyRecyclerView listView;
-
-    @BindView(R.id.id_swiperefreshlayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    private TextJokeFragment textJokeFragment;
+    private ImgJokeFragment imgJokeFragment;
 
     @Override
     public void initView() {
@@ -31,22 +29,20 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
             }
         });
         initSlideMenu();
-        listView.setLayoutManager(new LinearLayoutManager(this));
-        listView.setFooterResource(R.layout.item_footer);
-        listView.setLoadMoreEnable(true);
-        listView.setOnLoadMoreListener(new EasyRecyclerView.OnLoadMoreListener() {
-            @Override
-            public void loadMoreListener() {
-                mPresenter.loadMore();
-            }
-        });
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.initData();
-            }
-        });
+        initViewPager();
+    }
 
+    /**
+     * 初始化viewpager
+     */
+    public void initViewPager(){
+        textJokeFragment = new TextJokeFragment();
+        imgJokeFragment = new ImgJokeFragment();
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        fragmentAdapter.addFragment(textJokeFragment);
+        fragmentAdapter.addFragment(imgJokeFragment);
+
+        viewPager.setAdapter(fragmentAdapter);
     }
 
     // init presenter
@@ -58,25 +54,8 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_contacts;
-    }
-
-    @Override
-    public void setAdapter(JokeAdapter adapter) {
-        listView.setAdapter(adapter);
-        if (swipeRefreshLayout.isRefreshing()){
-            finishRefresh();
-        }
+        return R.layout.activity_jokes;
     }
 
 
-    /**
-     * 结束刷新
-     * 刷新结束后，需调用swipeRefreshLayout.setRefreshing(false); 隐藏下拉刷新header
-     */
-    @Override
-    public void finishRefresh() {
-        listView.notifyData();
-        swipeRefreshLayout.setRefreshing(false);
-    }
 }

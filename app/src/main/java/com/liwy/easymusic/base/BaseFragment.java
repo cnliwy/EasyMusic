@@ -34,7 +34,7 @@ public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Easy
         mContext = context;
         mActivity = getActivity();
         mPresenter.setContext(context);
-        mPresenter.setmActivity(mActivity);
+        mPresenter.setActivity(mActivity);
         mPresenter.onAttach(context);
     }
 

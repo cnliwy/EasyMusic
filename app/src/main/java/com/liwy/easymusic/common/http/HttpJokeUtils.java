@@ -77,7 +77,18 @@ public class HttpJokeUtils {
      * @param subscriber
      */
     public void getJokes(String time, String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
-        httpService.getJokes(time,page,maxResult+"",showapi_appid,showapi_sign)
+        httpService.getJokes(time,page,String.valueOf(maxResult),showapi_appid,showapi_sign)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取笑话
+     * @param page
+     * @param subscriber
+     */
+    public void getGifJokes(String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
+        httpService.getGifJokes(page,String.valueOf(maxResult),showapi_appid,showapi_sign)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

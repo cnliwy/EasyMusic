@@ -73,6 +73,7 @@ public class ToastUtils {
     }
 
     public static void show(int resId) {
+        if (context == null) context = MyApplication.getInstance().getApplicationContext();
         show(context.getString(resId));
     }
 }

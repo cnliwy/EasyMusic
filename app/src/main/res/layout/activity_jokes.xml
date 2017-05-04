@@ -8,7 +8,7 @@
 
 
 
-    <include layout="@layout/activity_contacts_content"></include>
+    <include layout="@layout/activity_jokes_content"></include>
     <include layout="@layout/layout_slide_menu"></include>
 
 </android.support.v4.widget.DrawerLayout>
