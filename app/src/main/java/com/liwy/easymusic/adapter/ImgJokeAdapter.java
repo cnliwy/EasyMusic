@@ -34,7 +34,7 @@ public class ImgJokeAdapter extends EasyRecyclerAdapter<Joke> {
         time = time.substring(0,time.length()-4);
         holder.setText(R.id.tv_time,time);
         holder.setText(R.id.tv_title,item.getTitle());
-        ImgUtils.getInstance().display(mContext,item.getImg(),imageView);
+//        ImgUtils.getInstance().display(mContext,item.getImg(),imageView);
 
     }
 

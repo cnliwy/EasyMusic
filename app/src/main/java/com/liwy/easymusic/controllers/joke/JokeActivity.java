@@ -8,6 +8,11 @@ import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
 import com.liwy.easymusic.controllers.joke.imgjoke.ImgJokeFragment;
 import com.liwy.easymusic.controllers.joke.textjoke.TextJokeFragment;
+import com.liwy.easymusic.views.tabindicator.LiwyIndicator;
+import com.liwy.easymusic.views.tabindicator.TabBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -16,6 +21,9 @@ import butterknife.BindView;
 public class JokeActivity extends BaseActivity<JokePresenter> implements JokeView {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
+
+    @BindView(R.id.indictor)
+    LiwyIndicator indicator;
 
     private TextJokeFragment textJokeFragment;
     private ImgJokeFragment imgJokeFragment;
@@ -41,8 +49,18 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         fragmentAdapter.addFragment(textJokeFragment);
         fragmentAdapter.addFragment(imgJokeFragment);
-
         viewPager.setAdapter(fragmentAdapter);
+        initIndictor();
+    }
+
+    /**
+     * 初始化导航栏
+     */
+    public void initIndictor(){
+        List<TabBean> list = new ArrayList<TabBean>() ;
+        list.add(new TabBean("笑话"));
+        list.add(new TabBean("趣图"));
+        indicator.setTabAndViewPager(list,viewPager);
     }
 
     // init presenter

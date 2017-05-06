@@ -63,7 +63,7 @@ public class OnlineMusicFragment extends BaseFragment<OnlineMusicPresenter> impl
                 mPresenter.loadMoreMusic();
             }
         });
-        recyclerview.setSwipeMenuEnable(true);//开启滑动菜单功能
+        recyclerview.setSwipeMenuEnable(false);//开启滑动菜单功能
         // 设置点击事件，包括item点击和菜单点击
         recyclerview.setOnItemClickListener(new EasyRecyclerView.OnItemClickListener() {
             @Override

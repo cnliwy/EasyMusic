@@ -18,14 +18,16 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.liwy.easymusic.common.http.HttpJokeUtils.maxResult;
+
 
 public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
     private List<Joke> datas = new ArrayList<Joke>();
-    private int currentPage = 1;
-    String timeStr = "2000-05-21";
+    private int currentPage = 1;    //当前页
     private int allPages;
     private int allNums;
     ImgJokeAdapter adapter;
+    private int currentIndex = -1;   //当前序列
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
                     allPages = result.getResult().getAllPages();
                     adapter = new ImgJokeAdapter(mContext,datas);
                     mView.setAdapter(adapter);
+                    next();
                 }
             }
             @Override
@@ -57,6 +60,23 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
                 mView.setAdapter(adapter);
             }
         },mContext,true));
+    }
+
+    /**
+     * 下一个
+     */
+    public void next(){
+        if (datas == null || datas.size() < 1){
+            initData();
+            return;
+        }
+        if (currentIndex == currentPage * maxResult - 1){
+            loadMore();
+        }else{
+            currentIndex++;
+            Joke joke = datas.get(currentIndex);
+            mView.updateNext(joke);
+        }
     }
 
     /**
@@ -75,6 +95,7 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
                     List<Joke> jokes = result.getResult().getContentList();
                     if (jokes != null && jokes.size() > 0)datas.addAll(jokes);
                     adapter.notifyDataSetChanged();
+                    next();
                 }
                 mView.finishRefresh();
             }

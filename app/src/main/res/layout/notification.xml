@@ -30,6 +30,8 @@
             android:ellipsize="end"
             android:fadingEdge="horizontal"
             android:maxLines="1"
+            android:textColor="@color/black"
+            android:text="@string/about"
             android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
         <TextView
@@ -53,7 +55,7 @@
             android:layout_height="fill_parent"
             android:contentDescription="@null"
             android:scaleType="center"
-            android:src="@drawable/ic_status_bar_pause_dark" />
+            android:src="@drawable/play_bar_btn_play_pause_selector" />
 
         <ImageView
             android:id="@+id/iv_next"
@@ -61,6 +63,6 @@
             android:layout_height="fill_parent"
             android:contentDescription="@null"
             android:scaleType="center"
-            android:src="@drawable/ic_status_bar_next_dark" />
+            android:src="@drawable/ic_play_bar_btn_next" />
     </LinearLayout>
 </LinearLayout>

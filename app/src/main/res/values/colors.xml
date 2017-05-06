@@ -31,4 +31,8 @@
     <color name="translucent_grey_300_96p">#F5E0E0E0</color>
     <color name="translucent_grey_900_96p">#F5212121</color>
     <color name="translucent_grey_700_96p">#F5616161</color>
+    <!--indictor-->
+    <color name="nav_background_color">#FAFAFA</color>
+    <color name="nav_text_color_def">#AAAAAA</color>
+    <color name="nav_text_color_sel">#2BBDD4</color>
 </resources>

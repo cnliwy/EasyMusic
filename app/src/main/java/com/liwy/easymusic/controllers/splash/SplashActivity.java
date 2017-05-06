@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.base.BaseActivity;
+import com.liwy.easymusic.common.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
@@ -61,7 +62,8 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         @Override
         public void onFailed(int requestCode, List<String> deniedPermissions) {
             if (requestCode == 100) {
-               finish();
+//               finish();
+                ToastUtils.show("获取权限失败！");
             } else {
 
             }

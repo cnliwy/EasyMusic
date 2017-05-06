@@ -81,8 +81,8 @@ public class Notifier {
         remoteViews.setTextViewText(R.id.tv_title, title);
         remoteViews.setTextViewText(R.id.tv_subtitle, subtitle);
 
-//        boolean isLightNotificationTheme = isLightNotificationTheme(playService);
-        boolean isLightNotificationTheme = true;
+        boolean isLightNotificationTheme = isLightNotificationTheme(playService);
+//        boolean isLightNotificationTheme = true;
 
         Intent playIntent = new Intent(StatusBarReceiver.ACTION_STATUS_BAR);
         playIntent.putExtra(StatusBarReceiver.EXTRA, StatusBarReceiver.EXTRA_PLAY_PAUSE);
@@ -93,21 +93,24 @@ public class Notifier {
         Intent nextIntent = new Intent(StatusBarReceiver.ACTION_STATUS_BAR);
         nextIntent.putExtra(StatusBarReceiver.EXTRA, StatusBarReceiver.EXTRA_NEXT);
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, 1, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setImageViewResource(R.id.iv_next, getNextIconRes(isLightNotificationTheme));
+//        remoteViews.setImageViewResource(R.id.iv_next, getNextIconRes(isLightNotificationTheme));
         remoteViews.setOnClickPendingIntent(R.id.iv_next, nextPendingIntent);
 
         return remoteViews;
     }
 
+
     private static int getPlayIconRes(boolean isLightNotificationTheme, boolean isPlaying) {
         if (isPlaying) {
-            return isLightNotificationTheme
-                    ? R.drawable.ic_status_bar_pause_dark_selector
-                    : R.drawable.ic_status_bar_pause_light_selector;
+            return R.drawable.ic_play_bar_btn_pause;
+//            return isLightNotificationTheme
+//                    ? R.drawable.ic_status_bar_pause_dark_selector
+//                    : R.drawable.ic_status_bar_pause_light_selector;
         } else {
-            return isLightNotificationTheme
-                    ? R.drawable.ic_status_bar_play_dark_selector
-                    : R.drawable.ic_status_bar_play_light_selector;
+            return R.drawable.ic_play_bar_btn_pause;
+//            return isLightNotificationTheme
+//                    ? R.drawable.ic_status_bar_play_dark_selector
+//                    : R.drawable.ic_status_bar_play_light_selector;
         }
     }
 
@@ -118,8 +121,9 @@ public class Notifier {
     }
 
     private static boolean isLightNotificationTheme(Context context) {
-        int notificationTextColor = getNotificationTextColor(context);
-        return isSimilarColor(Color.BLACK, notificationTextColor);
+//        int notificationTextColor = getNotificationTextColor(context);
+//        return isSimilarColor(Color.BLACK, notificationTextColor);
+        return false;
     }
 
     private static int getNotificationTextColor(Context context) {

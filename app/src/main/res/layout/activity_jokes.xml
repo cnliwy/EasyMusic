@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.liwy.easymusic.controllers.joke.JokeActivity">
 
-
-
     <include layout="@layout/activity_jokes_content"></include>
     <include layout="@layout/layout_slide_menu"></include>
 

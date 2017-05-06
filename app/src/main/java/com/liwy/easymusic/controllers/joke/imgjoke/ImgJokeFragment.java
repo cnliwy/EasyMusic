@@ -3,11 +3,17 @@ package com.liwy.easymusic.controllers.joke.imgjoke;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.ImgJokeAdapter;
 import com.liwy.easymusic.base.BaseFragment;
 import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.common.utils.ImgUtils;
+import com.liwy.easymusic.model.happy.Joke;
 
 import butterknife.BindView;
 
@@ -22,6 +28,18 @@ public class ImgJokeFragment extends BaseFragment<ImgJokePresenter> implements I
 
     @BindView(R.id.empty_view)
     public View emptyView;
+
+    @BindView(R.id.tv_time)
+    TextView timeTv;
+
+    @BindView(R.id.tv_title)
+    TextView titleTv;
+
+    @BindView(R.id.img_joke)
+    ImageView imgIv;
+
+    @BindView(R.id.btn_next)
+    Button nextBtn;
 
     @Override
     public void initView() {
@@ -39,6 +57,12 @@ public class ImgJokeFragment extends BaseFragment<ImgJokePresenter> implements I
             @Override
             public void onRefresh() {
                 mPresenter.initData();
+            }
+        });
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.next();
             }
         });
     }
@@ -63,6 +87,14 @@ public class ImgJokeFragment extends BaseFragment<ImgJokePresenter> implements I
         }
     }
 
+    @Override
+    public void updateNext(Joke joke) {
+        String time = joke.getTime();
+        time = time.substring(0,time.length()-4);
+        timeTv.setText(time);
+        titleTv.setText(joke.getTitle());
+        Glide.with(this).load(joke.getImg()).placeholder(R.drawable.ic_slide_time).into(imgIv);
+    }
 
     /**
      * 结束刷新

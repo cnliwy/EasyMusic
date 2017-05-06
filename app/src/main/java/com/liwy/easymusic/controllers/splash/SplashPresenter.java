@@ -56,8 +56,8 @@ public class SplashPresenter extends BasePresenter<SplashView> {
    }
 
     private void checkPermisssion(){
-        if (!AndPermission.hasPermission(mContext, Manifest.permission_group.STORAGE)){
-            AndPermission.with(mActivity).permission(Manifest.permission_group.STORAGE).requestCode(100).send();
+        if (!AndPermission.hasPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            AndPermission.with(mActivity).permission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE).requestCode(100).send();
         }else{
             checkService();
         }
