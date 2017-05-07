@@ -5,6 +5,12 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout"/>
+    <com.liwy.easymusic.views.tabindicator.LiwyIndicator
+        android:id="@+id/indictor"
+        android:layout_height="49dp"
+        android:layout_width="match_parent"
+        android:background="@color/divider_gray_line"
+        ></com.liwy.easymusic.views.tabindicator.LiwyIndicator>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -12,11 +18,6 @@
         android:layout_height="0dip"
         android:layout_weight="1"/>
 
-    <com.liwy.easymusic.views.tabindicator.LiwyIndicator
-        android:id="@+id/indictor"
-        android:layout_height="49dp"
-        android:layout_width="match_parent"
-        android:background="@color/divider_gray_line"
-        ></com.liwy.easymusic.views.tabindicator.LiwyIndicator>
+
 
 </LinearLayout>

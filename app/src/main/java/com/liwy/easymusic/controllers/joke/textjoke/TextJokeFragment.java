@@ -7,7 +7,7 @@ import android.view.View;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.TextJokeAdapter;
 import com.liwy.easymusic.base.BaseFragment;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
 
 import butterknife.BindView;
 

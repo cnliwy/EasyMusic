@@ -11,10 +11,9 @@ import com.liwy.easymusic.adapter.MusicAdapter;
 import com.liwy.easymusic.base.BaseFragment;
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
-import com.liwy.easymusic.base.easyrecycler.SwipMenu;
-import com.liwy.easymusic.base.easyrecycler.SwipMenuCreator;
-import com.liwy.easymusic.common.http.HttpUtils;
+import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.views.easyrecycler.SwipMenu;
+import com.liwy.easymusic.views.easyrecycler.SwipMenuCreator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ public class TabConfig {
     //TabView的宽
     public static int tabWidth = 45;
     //TabView的高
-    public static int tabHeight = 40;
+    public static int tabHeight = 49;
 
     //TabView背景图片的宽和高
     public static int tabImgWidth = 20;
@@ -31,7 +31,7 @@ public class TabConfig {
     public static int selectedTabColor = R.color.nav_background_color;
 
     //字体的大小
-    public static int textSize = 16;
+    public static int textSize = 5;
 
     //默认字体颜色
     public static int defTextColor = R.color.nav_text_color_def;

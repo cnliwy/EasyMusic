@@ -6,7 +6,7 @@ import android.support.v4.widget.TextViewCompat;
 import android.widget.TextView;
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.base.easyrecycler.EasyListAdapter;
+import com.liwy.easymusic.views.easyrecycler.EasyListAdapter;
 import com.liwy.easymusic.entity.SlideItem;
 
 import java.util.List;

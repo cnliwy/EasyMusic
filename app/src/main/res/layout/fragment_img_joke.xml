@@ -77,11 +77,11 @@
             android:layout_height="0dip"
             android:layout_weight="1"
             >
-            <com.liwy.easymusic.base.easyrecycler.EasyRecyclerView
+            <com.liwy.easymusic.views.easyrecycler.EasyRecyclerView
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                ></com.liwy.easymusic.base.easyrecycler.EasyRecyclerView>
+                ></com.liwy.easymusic.views.easyrecycler.EasyRecyclerView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

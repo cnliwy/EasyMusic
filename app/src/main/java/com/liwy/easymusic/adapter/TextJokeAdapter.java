@@ -4,8 +4,8 @@ import android.content.Context;
 
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.base.easyrecycler.EasyHolder;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerAdapter;
+import com.liwy.easymusic.views.easyrecycler.EasyHolder;
+import com.liwy.easymusic.views.easyrecycler.EasyRecyclerAdapter;
 import com.liwy.easymusic.model.happy.Joke;
 
 import java.util.List;

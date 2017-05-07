@@ -11,8 +11,7 @@ import com.bumptech.glide.Glide;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.ImgJokeAdapter;
 import com.liwy.easymusic.base.BaseFragment;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerView;
-import com.liwy.easymusic.common.utils.ImgUtils;
+import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
 import com.liwy.easymusic.model.happy.Joke;
 
 import butterknife.BindView;

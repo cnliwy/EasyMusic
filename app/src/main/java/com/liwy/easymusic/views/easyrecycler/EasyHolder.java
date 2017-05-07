@@ -1,4 +1,4 @@
-package com.liwy.easymusic.base.easyrecycler;
+package com.liwy.easymusic.views.easyrecycler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 

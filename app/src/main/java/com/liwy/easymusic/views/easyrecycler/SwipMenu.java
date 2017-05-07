@@ -1,4 +1,4 @@
-package com.liwy.easymusic.base.easyrecycler;
+package com.liwy.easymusic.views.easyrecycler;
 
 import android.content.Context;
 import android.graphics.Color;

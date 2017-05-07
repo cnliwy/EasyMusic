@@ -58,8 +58,8 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
      */
     public void initIndictor(){
         List<TabBean> list = new ArrayList<TabBean>() ;
-        list.add(new TabBean("笑话"));
-        list.add(new TabBean("趣图"));
+        list.add(new TabBean("笑话",R.drawable.ic_slide_happy));
+        list.add(new TabBean("趣图",R.drawable.ic_slide_music));
         indicator.setTabAndViewPager(list,viewPager);
     }
 

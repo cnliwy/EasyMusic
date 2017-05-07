@@ -40,6 +40,15 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
         getMusicList(currentPage,true);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 当页面销毁的时候取消http请求和取消订阅
+        if (subscriber.isUnsubscribed()){
+            subscriber.unsubscribe();
+        }
+    }
+
     public void getMusicList(int page, final boolean isRefresh){
         musicType = new Random().nextInt(musicTypes.length);
         subscriber = new ProgressSubscriber<OnlineMusicList>(new HttpCallback<OnlineMusicList>() {
@@ -74,9 +83,9 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
     }
     // item点击事件,点击播放音乐
     public void onItemClick(int position){
-        AppCache.getPlayService().setPlayNetStyle(true);
-        AppCache.getPlayService().setOnlineMusicList(dataList);
-        AppCache.getPlayService().playOnlieMusic(position);
+        getPlayService().setPlayNetStyle(true);
+        getPlayService().setOnlineMusicList(dataList);
+        getPlayService().playOnlieMusic(position);
     }
 
     // 加载数据
@@ -84,15 +93,11 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
         getMusicList(currentPage,false);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // 当页面销毁的时候取消http请求和取消订阅
-        if (subscriber.isUnsubscribed()){
-            subscriber.unsubscribe();
-        }
-    }
 
+    /**
+     * 获取播放服务
+     * @return
+     */
     public PlayService getPlayService() {
         PlayService playService = AppCache.getPlayService();
         if (playService == null) {

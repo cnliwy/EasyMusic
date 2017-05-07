@@ -7,10 +7,9 @@ import android.widget.TextView;
 
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.base.easyrecycler.EasyHolder;
-import com.liwy.easymusic.base.easyrecycler.EasyRecyclerAdapter;
+import com.liwy.easymusic.views.easyrecycler.EasyHolder;
+import com.liwy.easymusic.views.easyrecycler.EasyRecyclerAdapter;
 import com.liwy.easymusic.common.utils.ImgUtils;
-import com.liwy.easymusic.entity.Musics;
 import com.liwy.easymusic.model.OnlineMusic;
 
 import java.util.List;
