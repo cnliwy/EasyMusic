@@ -72,33 +72,13 @@ public class OnlineMusicPresenter extends BaseFragmentPresenter<OnlineMusicView>
             adapter.notifyDataSetChanged();
         }
     }
-    // item点击事件
+    // item点击事件,点击播放音乐
     public void onItemClick(int position){
         AppCache.getPlayService().setPlayNetStyle(true);
         AppCache.getPlayService().setOnlineMusicList(dataList);
         AppCache.getPlayService().playOnlieMusic(position);
     }
 
-    public void playMusic(OnlineMusic onlineMusic){
-            new PlayOnlineMusic(mActivity, onlineMusic) {
-                @Override
-                public void onPrepare() {
-//                    mProgressDialog.show();
-                }
-
-                @Override
-                public void onExecuteSuccess(Music music) {
-//                    mProgressDialog.cancel();
-                    getPlayService().play(music);
-                }
-
-                @Override
-                public void onExecuteFail(Exception e) {
-//                    mProgressDialog.cancel();
-                    ToastUtils.show(R.string.unable_to_play);
-                }
-            }.execute();
-    }
     // 加载数据
     public void loadMoreMusic(){
         getMusicList(currentPage,false);

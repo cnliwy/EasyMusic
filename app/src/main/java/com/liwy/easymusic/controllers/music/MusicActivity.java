@@ -66,26 +66,22 @@ public class MusicActivity extends BaseActivity<MusicPresenter> implements Music
         flPlayBar.setOnClickListener(this);
         ivPlayBarPlay.setOnClickListener(this);
         ivPlayBarNext.setOnClickListener(this);
-
+        //开启音乐播放事件监听，更新页面
         getPlayService().setOnPlayEventListener(this);
-//        registerReceiver();
         onChange(getPlayService().getPlayingMusic());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getPlayService().setOnPlayEventListener(null);
-    }
 
+
+    /**
+     * 初始化ViewPager
+     */
     public void initViewPager(){
         onlineMusicFragment = new OnlineMusicFragment();
         localMusicFragment = new LocalMusicFragment();
-
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         fragmentAdapter.addFragment(onlineMusicFragment);
         fragmentAdapter.addFragment(localMusicFragment);
-
         viewPager.setAdapter(fragmentAdapter);
     }
 
@@ -105,14 +101,13 @@ public class MusicActivity extends BaseActivity<MusicPresenter> implements Music
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fl_play_bar:
-//                showPlayingFragment();
                 ToastUtils.show("播放页面正在开发");
                 break;
             case R.id.iv_play_bar_play:
-                play();
+                mPresenter.play();
                 break;
             case R.id.iv_play_bar_next:
-                next();
+                mPresenter.next();
                 break;
         }
     }
@@ -183,11 +178,5 @@ public class MusicActivity extends BaseActivity<MusicPresenter> implements Music
 //        }
     }
 
-    private void play() {
-        getPlayService().playPause();
-    }
 
-    private void next() {
-        getPlayService().next();
-    }
 }
