@@ -2,8 +2,9 @@
     <string name="app_name">易Life</string>
     <string name="author">暮醉南山</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_weibo">微博</string>
 
     <string name="sure">确定</string>
     <string name="cancel">取消</string>

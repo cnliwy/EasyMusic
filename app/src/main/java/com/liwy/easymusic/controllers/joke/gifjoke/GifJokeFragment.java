@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.ImgJokeAdapter;
 import com.liwy.easymusic.base.BaseFragment;
@@ -93,7 +94,11 @@ public class GifJokeFragment extends BaseFragment<GifJokePresenter> implements G
         time = time.substring(0,time.length()-4);
         timeTv.setText(time);
         titleTv.setText(joke.getTitle());
-        Glide.with(this).load(joke.getImg()).placeholder(R.drawable.ic_slide_time).into(imgIv);
+        Glide.with(this).load(joke.getImg())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .crossFade().centerCrop()
+                .placeholder(R.drawable.ic_slide_time)
+                .into(imgIv);
     }
 
     /**

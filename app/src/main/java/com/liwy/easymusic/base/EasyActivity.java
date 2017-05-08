@@ -24,6 +24,7 @@ import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.utils.ScreenUtils;
 import com.liwy.easymusic.controllers.joke.JokeActivity;
 import com.liwy.easymusic.controllers.music.MusicActivity;
+import com.liwy.easymusic.controllers.weibo.WeiboActivity;
 import com.liwy.easymusic.entity.SlideItem;
 import com.umeng.analytics.MobclickAgent;
 
@@ -33,7 +34,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 
 /**
  * Created by liwy on 2017/4/26.
@@ -74,6 +74,7 @@ public abstract class EasyActivity extends AppCompatActivity {
             Arrays.asList(
                     new SlideItem(R.drawable.ic_slide_music, "听雨楼"),
                     new SlideItem(R.drawable.ic_slide_happy, "欢乐谷"),
+                    new SlideItem(R.drawable.ic_slide_happy, "微博"),
                     new SlideItem(R.drawable.ic_slide_time, "定时关闭音乐"),
                     new SlideItem(R.drawable.ic_slide_exit, "退出")
 
@@ -124,6 +125,7 @@ public abstract class EasyActivity extends AppCompatActivity {
                         turnToActivity(JokeActivity.class);
                         break;
                     case 3:
+                        turnToActivity(WeiboActivity.class);
                         break;
                     case 4:
                         break;

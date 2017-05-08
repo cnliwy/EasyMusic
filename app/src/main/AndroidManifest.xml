@@ -3,14 +3,13 @@
     package="com.liwy.easymusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-    <!--Bugly-->
+    <!-- Bugly -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
@@ -27,30 +26,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.music.MusicActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".controllers.joke.JokeActivity" android:launchMode="singleTask" />
+        <activity
+            android:name=".controllers.music.MusicActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".controllers.joke.JokeActivity"
+            android:launchMode="singleTask" />
+
         <service android:name=".service.playmusic.PlayService" />
 
-        <!--<receiver android:name=".receiver.DownloadReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.DOWNLOAD_COMPLETE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver android:name=".receiver.DownloadReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.DOWNLOAD_COMPLETE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
-        <!--<receiver android:name=".receiver.RemoteControlReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MEDIA_BUTTON" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+
+        <!-- <receiver android:name=".receiver.RemoteControlReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MEDIA_BUTTON" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
         <receiver android:name=".receiver.StatusBarReceiver">
             <intent-filter>
                 <action android:name="me.wcy.music.STATUS_BAR_ACTIONS" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".controllers.weibo.WeiboActivity"></activity>
     </application>
-
-
 
 </manifest>
