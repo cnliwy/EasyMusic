@@ -37,6 +37,12 @@ public interface HttpApi {
                                          @Query("showapi_appid") String showapi_appid,
                                          @Query("showapi_sign") String showapi_sign);
 
+    @GET("341-2/")
+    Observable<BaseHappyResult<JokeResult>> getImgJokes( @Query("page") String page,
+                                                         @Query("maxResult") String maxResult,
+                                                         @Query("showapi_appid") String showapi_appid,
+                                                         @Query("showapi_sign") String showapi_sign);
+
     @GET("341-3/")
     Observable<BaseHappyResult<JokeResult>> getGifJokes( @Query("page") String page,
                                                      @Query("maxResult") String maxResult,

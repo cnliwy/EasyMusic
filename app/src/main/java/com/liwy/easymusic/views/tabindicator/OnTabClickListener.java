@@ -5,5 +5,5 @@ package com.liwy.easymusic.views.tabindicator;
  * Created by liwy on 16/7/19.
  */
 public interface OnTabClickListener {
-    public void onClick(LiwyIndicator.TabView v);
+    public void onClick(TabView v);
 }

@@ -1,4 +1,4 @@
-package com.liwy.easymusic.controllers.joke.imgjoke;
+package com.liwy.easymusic.controllers.joke.gifjoke;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.util.List;
 import static com.liwy.easymusic.common.http.HttpJokeUtils.maxResult;
 
 
-public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
+public class GifJokePresenter extends BaseFragmentPresenter<GifJokeView> {
     private List<Joke> datas = new ArrayList<Joke>();
     private int currentPage = 1;    //当前页
     private int allPages;
@@ -40,7 +40,7 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
      */
     public void initData(){
         datas = new ArrayList<Joke>();
-        HttpJokeUtils.getInstance().getImgJokes(String.valueOf(1),new ProgressSubscriber<BaseHappyResult<JokeResult>>(new HttpCallback<BaseHappyResult<JokeResult>>() {
+        HttpJokeUtils.getInstance().getGifJokes(String.valueOf(1),new ProgressSubscriber<BaseHappyResult<JokeResult>>(new HttpCallback<BaseHappyResult<JokeResult>>() {
             @Override
             public void onNext(BaseHappyResult<JokeResult> result) {
                 Logger.d(result.getResult().toString());

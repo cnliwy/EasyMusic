@@ -1,8 +1,6 @@
 package com.liwy.easymusic.views.tabindicator;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.liwy.easymusic.views.tabindicator.TabConfig.tabHeight;
 
 /**
  * 自定义导航栏.可单独使用.也可结合ViewPager+fragment使用.
@@ -23,15 +20,15 @@ import static com.liwy.easymusic.views.tabindicator.TabConfig.tabHeight;
  * 结合fragment时可重写页面切换事件mListener和点击事件mOnTabClickListener
  * Created by liwy on 16/7/19.
  */
-public class LiwyIndicator extends LinearLayout implements ITabIndicator{
+public class EasyIndicator extends LinearLayout implements ITabIndicator{
     private List<TabBean> tabsList;
     private List<TabView> childViews;
     private ViewPager viewPager;
     private ViewPager.OnPageChangeListener mPageListener;
     private LinearLayout mTabLayout;
-    private int tabWidth;
     private int currentIndex;
     private OnTabClickListener mOnTabClickListener;
+    private TabConfig config;
     // 默认点击事件
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
@@ -46,15 +43,15 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
         }
     };
 
-    public LiwyIndicator(Context context) {
+    public EasyIndicator(Context context) {
         this(context,null);
     }
 
-    public LiwyIndicator(Context context, AttributeSet attrs) {
+    public EasyIndicator(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public LiwyIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EasyIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setHorizontalScrollBarEnabled(false);
         mTabLayout = new LinearLayout(context,null);
@@ -65,16 +62,10 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int mode = MeasureSpec.getMode(widthMeasureSpec);
-        int childCount = mTabLayout.getChildCount();
-        if (childCount > 0 && (mode == MeasureSpec.EXACTLY||mode == MeasureSpec.AT_MOST)){
-            tabWidth = getMeasuredWidth()/tabsList.size();
-        }else{
-            tabWidth = -1;
+        if (config == null){
+            config = new TabConfig.Builder().builder();
         }
-        int h = MeasureSpec.getSize(heightMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = dip2px(getContext(),TabConfig.parentHeight);
+        int heightSize = dip2px(getContext(),config.getTabHeight());
         int newHeightMeasureSpect =  MeasureSpec.makeMeasureSpec(heightSize,MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, newHeightMeasureSpect);
     }
@@ -106,30 +97,42 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
         for (int i = 0; i < tabCount; i++) {
             final TabView child = (TabView)mTabLayout.getChildAt(i);
             final boolean isSelected = (i == item);
-            child.setSelected(isSelected);
+            if (config.isShowLine())child.setShowLine(false);
+            //设置默认背景色
+            if (config.getBgColorNor() != 0) child.setBackgroundColor(getColorIntByResid(config.getBgColorNor()));
+            if (tabsList.get(i).getResIconNormal() != 0)
+                child.setIcon(tabsList.get(i).getResIconNormal());
+            if (config.getTextColorNor() != 0)
+                child.setTextColor(getColorIntByResid(config.getTextColorNor()));
             if (isSelected) {
+                if (config.isShowLine())child.setShowLine(true);
                 //设置选中后的背景色
-                if (TabConfig.selectedTabColor != 0) {
-                    child.setBackgroundColor(getResources().getColor(TabConfig.selectedTabColor));
-                }
+                if (config.getBgColorSel() != 0)child.setBackgroundColor(getColorIntByResid(config.getBgColorSel()));
                 //设置选中后的背景图片
-                if (tabsList.get(i).getResIconSelected() != 0){
+                if (tabsList.get(i).getResIconSelected() != 0)
                     child.setIcon(tabsList.get(i).getResIconSelected());
-                }
-                if (TabConfig.selectedTextColor != 0)
-                    child.setTextColor(getResources().getColor(TabConfig.selectedTextColor));
-
-            }else{
-                //设置默认背景色
-                if (TabConfig.defTabColor != 0)
-                    child.setBackgroundColor(getResources().getColor(TabConfig.defTabColor));
-                if (tabsList.get(i).getResIconNormal() != 0)
-                    child.setIcon(tabsList.get(i).getResIconNormal());
-                if (TabConfig.defTextColor != 0)
-                    child.setTextColor(getResources().getColor(TabConfig.defTextColor));
+                if (config.getTextColorSel() != 0)
+                    child.setTextColor(getColorIntByResid(config.getTextColorSel()));
+                if (config.getLineColor() != 0)child.setLineColor(getColorIntByResid(config.getLineColor()));
             }
+
         }
     }
+
+
+    /**
+     * 根据资源获取色值
+     * @param colorResid
+     * @return
+     */
+    public int getColorIntByResid(int colorResid){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           return getResources().getColor(colorResid, null);
+        } else {
+            return getResources().getColor(colorResid);
+        }
+    }
+
 
     @Override
     public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
@@ -152,19 +155,16 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
         final TabView tabView = new TabView(getContext());
         tabView.setText(text);
         tabView.setIndex(index);
-        tabView.setGravity(Gravity.CENTER);
-        tabView.setTextSize(TabConfig.textSize);
-//        tabView.setPadding(0,8,0,8);
-//        tabView.setCompoundDrawablePadding(8);
+        tabView.setTextSize(config.getTextSize());
         tabView.setOnClickListener(mOnClickListener);
-        if (resId != 0){
-            tabView.setIcon(resId);
-        }
-        if (TabConfig.defTextColor != 0)
-            tabView.setTextColor(getResources().getColor(TabConfig.defTextColor));
-
+        tabView.setBackgroundColor(config.getBgColorNor());
+        tabView.setTextColor(config.getTextColorNor());
+        tabView.setLineColor(config.getLineColor());
+        tabView.setDistance(config.getDistance());
+        tabView.setImgHeight(config.getImgHeight());
+        tabView.setImgWidth(config.getImgWidth());
         childViews.add(index,tabView);
-        int height = dip2px(getContext(),tabHeight);
+        int height = dip2px(getContext(),config.getTabHeight());
         mTabLayout.addView(tabView, new LayoutParams(0, height, 1));
     }
 
@@ -209,50 +209,50 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
     }
 
 
-    public class TabView extends android.support.v7.widget.AppCompatTextView{
-        private int index;
-        private int iconWidth =  dip2px(getContext(), TabConfig.tabImgWidth);
-        private int iconHeight = dip2px(getContext(), TabConfig.tabImgHeight);
-        public TabView(Context context) {
-            this(context,null,0);
-        }
-
-        public TabView(Context context, AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-        }
-
-        @Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            if (index > 0){
-                super.onMeasure(MeasureSpec.makeMeasureSpec(tabWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
-            }
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
-        public void setIcon(int resId){
-            if (resId != 0){
-                Drawable drawable;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    drawable = getResources().getDrawable(resId,null);
-                }else{
-                    drawable = getResources().getDrawable(resId);
-                }
-                int padding = dip2px(getContext(),7);
-                drawable.setBounds(0,padding,iconWidth,iconHeight + padding);
-                setCompoundDrawables(null,drawable,null,null);
-                setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-                setBackgroundColor(Color.TRANSPARENT);
-            }
-        }
-    }
+//    public class TabView extends android.support.v7.widget.AppCompatTextView{
+//        private int index;
+//        private int iconWidth =  dip2px(getContext(), TabConfig.tabImgWidth);
+//        private int iconHeight = dip2px(getContext(), TabConfig.tabImgHeight);
+//        public TabView(Context context) {
+//            this(context,null,0);
+//        }
+//
+//        public TabView(Context context, AttributeSet attrs, int defStyleAttr) {
+//            super(context, attrs, defStyleAttr);
+//        }
+//
+//        @Override
+//        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//            if (index > 0){
+//                super.onMeasure(MeasureSpec.makeMeasureSpec(tabWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
+//            }
+//        }
+//
+//        public int getIndex() {
+//            return index;
+//        }
+//
+//        public void setIndex(int index) {
+//            this.index = index;
+//        }
+//
+//        public void setIcon(int resId){
+//            if (resId != 0){
+//                Drawable drawable;
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    drawable = getResources().getDrawable(resId,null);
+//                }else{
+//                    drawable = getResources().getDrawable(resId);
+//                }
+//                int padding = dip2px(getContext(),7);
+//                drawable.setBounds(0,padding,iconWidth,iconHeight + padding);
+//                setCompoundDrawables(null,drawable,null,null);
+//                setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+//                setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
+//    }
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
@@ -270,5 +270,9 @@ public class LiwyIndicator extends LinearLayout implements ITabIndicator{
 
     public List<TabView> getChildViews() {
         return childViews;
+    }
+
+    public void setConfig(TabConfig config) {
+        this.config = config;
     }
 }

@@ -83,7 +83,18 @@ public class HttpJokeUtils {
     }
 
     /**
-     * 获取笑话
+     * 获取Gif笑话
+     * @param page
+     * @param subscriber
+     */
+    public void getImgJokes(String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
+        httpService.getImgJokes(page,String.valueOf(maxResult),showapi_appid,showapi_sign)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取Gif笑话
      * @param page
      * @param subscriber
      */

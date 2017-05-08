@@ -1,4 +1,4 @@
-package com.liwy.easymusic.controllers.joke.imgjoke;
+package com.liwy.easymusic.controllers.joke.gifjoke;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,14 +11,14 @@ import com.bumptech.glide.Glide;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.ImgJokeAdapter;
 import com.liwy.easymusic.base.BaseFragment;
-import com.liwy.easymusic.model.happy.Joke;
 import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.model.happy.Joke;
 
 import butterknife.BindView;
 import uk.co.senab.photoview.PhotoView;
 
 
-public class ImgJokeFragment extends BaseFragment<ImgJokePresenter> implements ImgJokeView {
+public class GifJokeFragment extends BaseFragment<GifJokePresenter> implements GifJokeView {
 
     @BindView(R.id.rv_list)
     public EasyRecyclerView listView;
@@ -69,13 +69,13 @@ public class ImgJokeFragment extends BaseFragment<ImgJokePresenter> implements I
 
     @Override
     protected void initPresenter() {
-        mPresenter = new ImgJokePresenter();
+        mPresenter = new GifJokePresenter();
         mPresenter.init(this);
     }
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_img_joke;
+        return R.layout.fragment_gif_joke;
 
     }
 
