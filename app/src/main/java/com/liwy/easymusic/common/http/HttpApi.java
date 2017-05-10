@@ -5,8 +5,11 @@ import com.liwy.easymusic.entity.MovieEntity;
 import com.liwy.easymusic.entity.MusicRoot;
 import com.liwy.easymusic.entity.Musics;
 import com.liwy.easymusic.model.OnlineMusicList;
-import com.liwy.easymusic.model.happy.BaseHappyResult;
-import com.liwy.easymusic.model.happy.JokeResult;
+import com.liwy.easymusic.model.happy.DataResult;
+import com.liwy.easymusic.model.happy.Joke;
+import com.liwy.easymusic.model.happy.RootResult;
+import com.liwy.easymusic.model.happy.Weibo;
+import com.liwy.easymusic.model.happy.WeiboResult;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -32,21 +35,29 @@ public interface HttpApi {
     Observable<OnlineMusicList> searchMusicByConditions(@Query("type")String type, @Query("size")int size, @Query("offset")int offset, @Query("method")String method);
 
     @GET("341-1/")
-    Observable<BaseHappyResult<JokeResult>> getJokes(@Query("time") String time, @Query("page") String page,
-                                         @Query("maxResult") String maxResult,
-                                         @Query("showapi_appid") String showapi_appid,
-                                         @Query("showapi_sign") String showapi_sign);
+    Observable<RootResult<Joke>> getJokes(@Query("time") String time, @Query("page") String page,
+                                                      @Query("maxResult") String maxResult,
+                                                      @Query("showapi_appid") String showapi_appid,
+                                                      @Query("showapi_sign") String showapi_sign);
 
     @GET("341-2/")
-    Observable<BaseHappyResult<JokeResult>> getImgJokes( @Query("page") String page,
+    Observable<RootResult<Joke>> getImgJokes(@Query("page") String page,
                                                          @Query("maxResult") String maxResult,
                                                          @Query("showapi_appid") String showapi_appid,
                                                          @Query("showapi_sign") String showapi_sign);
 
     @GET("341-3/")
-    Observable<BaseHappyResult<JokeResult>> getGifJokes( @Query("page") String page,
-                                                     @Query("maxResult") String maxResult,
-                                                     @Query("showapi_appid") String showapi_appid,
-                                                     @Query("showapi_sign") String showapi_sign);
+    Observable<RootResult<Joke>> getGifJokes(@Query("page") String page,
+                                                         @Query("maxResult") String maxResult,
+                                                         @Query("showapi_appid") String showapi_appid,
+                                                         @Query("showapi_sign") String showapi_sign);
+
+    @GET("254-1/")
+    Observable<WeiboResult> getWeibos(@Query("typeId") String typeId,
+                                      @Query("page") String page,
+                                      @Query("space") String space,
+                                      @Query("showapi_appid") String showapi_appid,
+                                      @Query("showapi_sign") String showapi_sign);
+
 
 }

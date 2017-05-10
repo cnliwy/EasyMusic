@@ -79,4 +79,7 @@
     <string name="about_jianshu">http://www.jianshu.com/users/3231579893ac</string>
     <string name="about_github">https://github.com/wangchenyan</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

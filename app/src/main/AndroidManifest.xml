@@ -54,7 +54,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".controllers.weibo.WeiboActivity"></activity>
+        <activity android:name=".controllers.weibo.WeiboActivity" />
+        <activity android:name=".controllers.weibo.detail.WeiboDetailActivity"></activity>
     </application>
 
 </manifest>

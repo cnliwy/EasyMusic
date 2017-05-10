@@ -1,8 +1,9 @@
 package com.liwy.easymusic.common.http;
 
-import com.liwy.easymusic.model.OnlineMusicList;
-import com.liwy.easymusic.model.happy.BaseHappyResult;
-import com.liwy.easymusic.model.happy.JokeResult;
+import com.liwy.easymusic.model.happy.Joke;
+import com.liwy.easymusic.model.happy.RootResult;
+import com.liwy.easymusic.model.happy.Weibo;
+import com.liwy.easymusic.model.happy.WeiboResult;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by liwy on 2017/5/4.
  */
 
-public class HttpJokeUtils {
+public class HttpLifeUtils {
     private static final String BASE_URL = "http://route.showapi.com/";
     private static final String showapi_appid = "37278";
     private static final String showapi_app_secret = "63d6dc0aa6e1447f85caf2678d2c3956";
@@ -35,7 +36,7 @@ public class HttpJokeUtils {
 
 
     //构造方法私有
-    private HttpJokeUtils() {
+    private HttpLifeUtils() {
 //        .addHeader("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)")
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -62,11 +63,11 @@ public class HttpJokeUtils {
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder{
-        private static final HttpJokeUtils INSTANCE = new HttpJokeUtils();
+        private static final HttpLifeUtils INSTANCE = new HttpLifeUtils();
     }
 
     //获取单例
-    public static HttpJokeUtils getInstance(){
+    public static HttpLifeUtils getInstance(){
         return SingletonHolder.INSTANCE;
     }
 
@@ -76,7 +77,7 @@ public class HttpJokeUtils {
      * @param page
      * @param subscriber
      */
-    public void getJokes(String time, String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
+    public void getJokes(String time, String page, Subscriber<RootResult<Joke>> subscriber){
         httpService.getJokes(time,page,String.valueOf(maxResult),showapi_appid,showapi_sign)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -87,7 +88,7 @@ public class HttpJokeUtils {
      * @param page
      * @param subscriber
      */
-    public void getImgJokes(String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
+    public void getImgJokes(String page, Subscriber<RootResult<Joke>> subscriber){
         httpService.getImgJokes(page,String.valueOf(maxResult),showapi_appid,showapi_sign)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -98,9 +99,21 @@ public class HttpJokeUtils {
      * @param page
      * @param subscriber
      */
-    public void getGifJokes(String page, Subscriber<BaseHappyResult<JokeResult>> subscriber){
+    public void getGifJokes(String page, Subscriber<RootResult<Joke>> subscriber){
         httpService.getGifJokes(page,String.valueOf(maxResult),showapi_appid,showapi_sign)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 获取微博
+     * @param page
+     * @param subscriber
+     */
+    public void getWeibos(String typeId,String space,int page, Subscriber<WeiboResult> subscriber){
+        httpService.getWeibos(typeId,String.valueOf(page),space,showapi_appid,showapi_sign)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

@@ -8,18 +8,18 @@ import java.util.List;
  * Created by liwy on 2017/5/4.
  */
 
-public class JokeResult{
+public class DataResult<T> {
     private int allNum;
     private int allPages;
     private int currentPage;
     private int maxResult;
 
     @SerializedName("contentlist")
-    private List<Joke> contentList;
+    private List<T> contentList;
 
     @Override
     public String toString() {
-        return "JokeResult{" +
+        return "DataResult{" +
                 "allNum=" + allNum +
                 ", allPages=" + allPages +
                 ", currentPage=" + currentPage +
@@ -60,11 +60,11 @@ public class JokeResult{
         this.maxResult = maxResult;
     }
 
-    public List<Joke> getContentList() {
+    public List<T> getContentList() {
         return contentList;
     }
 
-    public void setContentList(List<Joke> contentList) {
+    public void setContentList(List<T> contentList) {
         this.contentList = contentList;
     }
 }

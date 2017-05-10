@@ -7,18 +7,18 @@ import android.view.View;
 import com.liwy.easymusic.adapter.ImgJokeAdapter;
 import com.liwy.easymusic.base.presenter.BaseFragmentPresenter;
 import com.liwy.easymusic.common.ToastUtils;
-import com.liwy.easymusic.common.http.HttpJokeUtils;
+import com.liwy.easymusic.common.http.HttpLifeUtils;
 import com.liwy.easymusic.common.http.subscribers.HttpCallback;
 import com.liwy.easymusic.common.http.subscribers.ProgressSubscriber;
-import com.liwy.easymusic.model.happy.BaseHappyResult;
+import com.liwy.easymusic.model.happy.DataResult;
+import com.liwy.easymusic.model.happy.RootResult;
 import com.liwy.easymusic.model.happy.Joke;
-import com.liwy.easymusic.model.happy.JokeResult;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.liwy.easymusic.common.http.HttpJokeUtils.maxResult;
+import static com.liwy.easymusic.common.http.HttpLifeUtils.maxResult;
 
 
 public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
@@ -40,9 +40,9 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
      */
     public void initData(){
         datas = new ArrayList<Joke>();
-        HttpJokeUtils.getInstance().getImgJokes(String.valueOf(1),new ProgressSubscriber<BaseHappyResult<JokeResult>>(new HttpCallback<BaseHappyResult<JokeResult>>() {
+        HttpLifeUtils.getInstance().getImgJokes(String.valueOf(1),new ProgressSubscriber<RootResult<Joke>>(new HttpCallback<RootResult<Joke>>() {
             @Override
-            public void onNext(BaseHappyResult<JokeResult> result) {
+            public void onNext(RootResult<Joke> result) {
                 Logger.d(result.getResult().toString());
                 if (result.getResult().getContentList() != null){
                     currentPage=1;
@@ -87,9 +87,9 @@ public class ImgJokePresenter extends BaseFragmentPresenter<ImgJokeView> {
             ToastUtils.show("已经是最后一页啦！");
             return;
         }
-        HttpJokeUtils.getInstance().getGifJokes(String.valueOf(currentPage + 1),new ProgressSubscriber<BaseHappyResult<JokeResult>>(new HttpCallback<BaseHappyResult<JokeResult>>() {
+        HttpLifeUtils.getInstance().getGifJokes(String.valueOf(currentPage + 1),new ProgressSubscriber<RootResult<Joke>>(new HttpCallback<RootResult<Joke>>() {
             @Override
-            public void onNext(BaseHappyResult<JokeResult> result) {
+            public void onNext(RootResult<Joke> result) {
                 currentPage++;
                 if (result.getResult().getContentList() != null){
                     List<Joke> jokes = result.getResult().getContentList();

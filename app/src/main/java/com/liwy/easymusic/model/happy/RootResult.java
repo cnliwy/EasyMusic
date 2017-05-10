@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by liwy on 2017/5/4.
  */
 
-public class BaseHappyResult<T> {
+public class RootResult<T> {
     @SerializedName("showapi_res_code")
     private int code;
 
@@ -14,7 +14,7 @@ public class BaseHappyResult<T> {
     private String errorMsg;
 
     @SerializedName("showapi_res_body")
-    private T result;
+    private DataResult<T> result;
 
     public int getCode() {
         return code;
@@ -32,11 +32,11 @@ public class BaseHappyResult<T> {
         this.errorMsg = errorMsg;
     }
 
-    public T getResult() {
+    public DataResult<T> getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(DataResult<T> result) {
         this.result = result;
     }
 }
