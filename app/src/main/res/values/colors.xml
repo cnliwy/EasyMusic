@@ -6,11 +6,13 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="text_black_1">#474747</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="tab_background">#fff5f5f5</color>
 
     <color name="text_gray_6">#666666</color>
+    <color name="text_gray_1">#808080</color>
     <color name="divider_gray_line">#cccccc</color>
 
     <color name="listview_divider_line">#F5F5F5</color>

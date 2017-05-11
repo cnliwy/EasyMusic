@@ -1,14 +1,12 @@
 package com.liwy.easymusic.controllers.weibo;
 
-import android.support.annotation.RequiresPermission;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
-import com.liwy.easymusic.controllers.weibo.read.ReadFragment;
+import com.liwy.easymusic.controllers.weibo.ranking.RankingListFragment;
 
 import butterknife.BindView;
 
@@ -44,7 +42,7 @@ public class WeiboActivity extends BaseActivity<WeiboPresenter> implements Weibo
 
 
     public void initViewPayger(){
-        ReadFragment readFragment = new ReadFragment();
+        RankingListFragment readFragment = new RankingListFragment();
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(readFragment);
         viewPager.setAdapter(adapter);

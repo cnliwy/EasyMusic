@@ -1,21 +1,19 @@
-package com.liwy.easymusic.controllers.weibo.read;
+package com.liwy.easymusic.controllers.weibo.ranking;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.liwy.easymusic.adapter.TextJokeAdapter;
 import com.liwy.easymusic.adapter.WeiboAdapter;
 import com.liwy.easymusic.base.BaseFragment;
 
 import com.liwy.easymusic.R;
-import com.liwy.easymusic.controllers.joke.textjoke.TextJokePresenter;
 import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
 
 import butterknife.BindView;
 
 
-public class ReadFragment extends BaseFragment<ReadPresenter> implements ReadView {
+public class RankingListFragment extends BaseFragment<RankingListPresenter> implements RankingListView {
 
     @BindView(R.id.rv_list)
     public EasyRecyclerView listView;
@@ -59,7 +57,7 @@ public class ReadFragment extends BaseFragment<ReadPresenter> implements ReadVie
 
     @Override
     protected void initPresenter() {
-        mPresenter = new ReadPresenter();
+        mPresenter = new RankingListPresenter();
         mPresenter.init(this);
     }
 

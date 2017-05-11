@@ -1,6 +1,7 @@
 package com.liwy.easymusic.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.liwy.easymusic.R;
@@ -29,10 +30,10 @@ public class WeiboAdapter extends EasyRecyclerAdapter<Weibo> {
 
     @Override
     public void convert(EasyHolder holder, Weibo item) {
-        String time = item.getDate();
-        holder.setText(R.id.tv_time,time);
-        holder.setText(R.id.tv_content,item.getNewinfo());
-        PhotoView imageView = holder.getView(R.id.view_image);
+        holder.setText(R.id.tv_name,item.getName());
+        holder.setText(R.id.tv_desc,item.getDesc());
+        holder.setText(R.id.tv_score,"影响力:" + item.getInfluence());
+        ImageView imageView = holder.getView(R.id.iv_head_view);
         Glide.with(mContext).load(item.getImg()).placeholder(R.drawable.ic_slide_time).into(imageView);
     }
 

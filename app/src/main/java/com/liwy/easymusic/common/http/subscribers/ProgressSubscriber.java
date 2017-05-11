@@ -3,8 +3,10 @@ package com.liwy.easymusic.common.http.subscribers;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.http.progress.ProgressCancelListener;
 import com.liwy.easymusic.common.http.progress.ProgressDialogHandler;
+import com.liwy.easymusic.common.utils.NetworkUtils;
 import com.orhanobut.logger.Logger;
 
 import java.net.ConnectException;
@@ -27,10 +29,15 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     private boolean isShowDialog;
 
     public ProgressSubscriber(HttpCallback<T> mHttpCallback, Context context, boolean isShowDialog) {
-        this.mHttpCallback = mHttpCallback;
-        this.context = context;
-        this.isShowDialog = isShowDialog;
-        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        if (NetworkUtils.isNetworkConnected(context)){
+            this.mHttpCallback = mHttpCallback;
+            this.context = context;
+            this.isShowDialog = isShowDialog;
+            mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        }else{
+            ToastUtils.show("网络连接不可用");
+        }
+
     }
 
     private void showProgressDialog(){

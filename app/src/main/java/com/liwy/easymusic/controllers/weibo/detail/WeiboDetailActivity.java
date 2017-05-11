@@ -24,13 +24,12 @@ public class WeiboDetailActivity extends BaseActivity<WeiboDetailPresenter> impl
     WebView webView;
 
     ProgressDialog progressDialog;
+
     private String url = "";
 
 
     @Override
     public void initView() {
-        initToolbarWithBack(TOOLBAR_MODE_CENTER,"详情",R.drawable.btn_back,null);
-        url = getIntent().getExtras().getString("url");
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("正在加载 %" + 0);
         progressDialog.show();
@@ -39,14 +38,13 @@ public class WeiboDetailActivity extends BaseActivity<WeiboDetailPresenter> impl
         //启用支持javascript
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        webView.loadUrl(url);
     }
 
     // init presenter
     @Override
     protected void initPresenter() {
         mPresenter = new WeiboDetailPresenter();
-        mPresenter.init(this);
+        mPresenter.init(this,this,this);
     }
 
     @Override
@@ -54,6 +52,16 @@ public class WeiboDetailActivity extends BaseActivity<WeiboDetailPresenter> impl
         return R.layout.activity_weibo_detail;
     }
 
+    @Override
+    public void initTop(String name){
+        initToolbarWithBack(TOOLBAR_MODE_CENTER,name,R.drawable.btn_back,null);
+    }
+
+    @Override
+    public void loadUrl(String url){
+        this.url = url;
+        webView.loadUrl(url);
+    }
     private class MyWebChromeClient extends WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
