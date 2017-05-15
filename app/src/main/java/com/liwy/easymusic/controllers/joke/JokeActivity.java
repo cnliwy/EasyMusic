@@ -6,6 +6,7 @@ import android.view.Gravity;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
+import com.liwy.easymusic.base.BaseSlideActivity;
 import com.liwy.easymusic.controllers.joke.gifjoke.GifJokeFragment;
 import com.liwy.easymusic.controllers.joke.imgjoke.ImgJokeFragment;
 import com.liwy.easymusic.controllers.joke.textjoke.TextJokeFragment;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 
 
 
-public class JokeActivity extends BaseActivity<JokePresenter> implements JokeView {
+public class JokeActivity extends BaseSlideActivity<JokePresenter> implements JokeView {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
@@ -36,7 +37,7 @@ public class JokeActivity extends BaseActivity<JokePresenter> implements JokeVie
         initToolbarWithBack(TOOLBAR_MODE_CENTER, "开心一刻", 0, new OnLeftClickListener() {
             @Override
             public void onLeftClick() {
-                drawerLayout.openDrawer(Gravity.LEFT);
+                manageLayout.openDrawer(Gravity.LEFT);
             }
         });
         initSlideMenu();

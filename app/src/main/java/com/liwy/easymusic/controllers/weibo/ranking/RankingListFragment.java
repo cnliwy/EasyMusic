@@ -9,6 +9,14 @@ import com.liwy.easymusic.base.BaseFragment;
 
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.views.easyrecycler.EasyRecyclerView;
+import com.liwy.easymusic.views.tabindicator.EasyIndicator;
+import com.liwy.easymusic.views.tabindicator.OnTabClickListener;
+import com.liwy.easymusic.views.tabindicator.TabBean;
+import com.liwy.easymusic.views.tabindicator.TabConfig;
+import com.liwy.easymusic.views.tabindicator.TabView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,6 +31,9 @@ public class RankingListFragment extends BaseFragment<RankingListPresenter> impl
 
     @BindView(R.id.empty_view)
     public View emptyView;
+
+    @BindView(R.id.indictor)
+    EasyIndicator indicator;
 
     @Override
     public void initView() {
@@ -53,6 +64,7 @@ public class RankingListFragment extends BaseFragment<RankingListPresenter> impl
 
             }
         });
+        initIndictor();
     }
 
     @Override
@@ -63,8 +75,34 @@ public class RankingListFragment extends BaseFragment<RankingListPresenter> impl
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_read;
+        return R.layout.fragment_rank_list;
 
+    }
+
+    /**
+     * 初始化导航栏
+     */
+    public void initIndictor(){
+        TabConfig config = new TabConfig.Builder()
+                .setTextColorNor(R.color.text_gray_6)    // 设置默认的文字颜色
+                .setTextColorSel(R.color.colorAccent)    // 设置选中后的文字颜色
+                .setTextSize(18)                           // 设置文字的大小
+                .setBgColorNor(R.color.white)             // 设置默认的背景色
+                .setLineColor(R.color.colorAccent)       // 设置下划线的颜色
+                .setShowLine(true)                        // 设置是否显示下划线
+                .builder();
+        indicator.setConfig(config);
+        indicator.setOnTabClickListener(new OnTabClickListener() {
+            @Override
+            public void onClick(TabView v) {
+                mPresenter.selectRanklistType(v.getIndex());
+            }
+        });
+        List<TabBean> list = new ArrayList<TabBean>() ;
+        list.add(new TabBean("天榜"));
+        list.add(new TabBean("周榜"));
+        list.add(new TabBean("月榜"));
+        indicator.setTabs(list);
     }
 
     @Override

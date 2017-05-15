@@ -3,6 +3,7 @@ package com.liwy.easymusic.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.TextViewCompat;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liwy.easymusic.R;
@@ -28,14 +29,16 @@ public class SlideItemAdapter extends EasyListAdapter<SlideItem> {
     @Override
     public ViewHolder initView(ViewHolder viewHolder, int position) {
         SlideItem item = mDatas.get(position);
-        TextView itemView = (TextView) viewHolder.getmConvertView();
+        TextView itemView = (TextView) viewHolder.getView(R.id.tv_menu_title);
         itemView.setText(item.name);
-        Drawable icon = mContext.getResources().getDrawable(item.icon);
-        // setIconColor(icon);
-        if (icon != null) {
-            icon.setBounds(0, 0, mIconSize, mIconSize);
-            TextViewCompat.setCompoundDrawablesRelative(itemView, icon, null, null, null);
-        }
+//        Drawable icon = mContext.getResources().getDrawable(item.icon);
+//        // setIconColor(icon);
+//        if (icon != null) {
+//            icon.setBounds(0, 0, mIconSize, mIconSize);
+//            TextViewCompat.setCompoundDrawablesRelative(itemView, icon, null, null, null);
+//        }
+        ImageView imageView = viewHolder.getView(R.id.iv_menu_icon);
+        imageView.setImageResource(item.icon);
         return viewHolder;
     }
 

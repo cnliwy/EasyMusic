@@ -200,11 +200,11 @@ public class EasyIndicator extends LinearLayout implements ITabIndicator{
     }
 
 
-    public void setmOnTabClickListener(OnTabClickListener mOnTabClickListener) {
+    public void setOnTabClickListener(OnTabClickListener mOnTabClickListener) {
         this.mOnTabClickListener = mOnTabClickListener;
     }
 
-    public void setmOnClickListener(OnClickListener mOnClickListener) {
+    public void setOnClickListener(OnClickListener mOnClickListener) {
         this.mOnClickListener = mOnClickListener;
     }
 

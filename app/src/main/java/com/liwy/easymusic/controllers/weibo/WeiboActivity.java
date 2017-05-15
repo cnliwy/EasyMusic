@@ -6,12 +6,13 @@ import android.view.Gravity;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
+import com.liwy.easymusic.base.BaseSlideActivity;
 import com.liwy.easymusic.controllers.weibo.ranking.RankingListFragment;
 
 import butterknife.BindView;
 
 
-public class WeiboActivity extends BaseActivity<WeiboPresenter> implements WeiboView {
+public class WeiboActivity extends BaseSlideActivity<WeiboPresenter> implements WeiboView {
 
     @BindView(R.id.viewpager)
     ViewPager viewPager;
@@ -21,7 +22,7 @@ public class WeiboActivity extends BaseActivity<WeiboPresenter> implements Weibo
         initToolbarWithBack(TOOLBAR_MODE_CENTER,getString(R.string.title_weibo), R.drawable.ic_menu, new OnLeftClickListener() {
             @Override
             public void onLeftClick() {
-                drawerLayout.openDrawer(Gravity.LEFT);
+                manageLayout.openDrawer(Gravity.LEFT);
             }
         });
         initSlideMenu();

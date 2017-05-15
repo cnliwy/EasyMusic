@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.liwy.easymusic.R;
 import com.liwy.easymusic.adapter.FragmentAdapter;
 import com.liwy.easymusic.base.BaseActivity;
+import com.liwy.easymusic.base.BaseSlideActivity;
 import com.liwy.easymusic.common.ToastUtils;
 import com.liwy.easymusic.common.utils.CoverLoader;
 import com.liwy.easymusic.controllers.music.local.LocalMusicFragment;
@@ -26,7 +27,7 @@ import static com.liwy.easymusic.service.playmusic.AppCache.getPlayService;
 /**
  * 演示下拉刷新和上拉加载的功能,数据为空时的页面展示
  */
-public class MusicActivity extends BaseActivity<MusicPresenter> implements MusicView,OnPlayerEventListener,View.OnClickListener {
+public class MusicActivity extends BaseSlideActivity<MusicPresenter> implements MusicView,OnPlayerEventListener,View.OnClickListener {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
@@ -58,7 +59,7 @@ public class MusicActivity extends BaseActivity<MusicPresenter> implements Music
         initToolbarWithBack(TOOLBAR_MODE_CENTER, "听雨楼", R.drawable.ic_menu, new OnLeftClickListener() {
             @Override
             public void onLeftClick() {
-                drawerLayout.openDrawer(Gravity.LEFT);
+                manageLayout.openDrawer(Gravity.LEFT);
             }
         });
         initSlideMenu();

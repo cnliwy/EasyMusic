@@ -62,23 +62,7 @@ public abstract class EasyActivity extends AppCompatActivity {
     public @BindView(R.id.tv_toolbar_right) TextView toolbarRight;
 
 
-    // 左侧滑动菜单控件
-    @Nullable
-    @BindView(R.id.id_lv_left_menu)
-    public ListView mLvLeftMenu;
-    @Nullable
-    @BindView(R.id.fd)
-    public DrawerLayout drawerLayout;
 
-    public List<SlideItem> mItems = new ArrayList<SlideItem>(
-            Arrays.asList(
-                    new SlideItem(R.drawable.ic_slide_music, "听雨楼"),
-                    new SlideItem(R.drawable.ic_slide_happy, "欢乐谷"),
-                    new SlideItem(R.drawable.ic_slide_happy, "微博"),
-                    new SlideItem(R.drawable.ic_slide_time, "定时关闭音乐"),
-                    new SlideItem(R.drawable.ic_slide_exit, "退出")
-
-            ));
     /**
      * 获取layout的id，由子类实现
      * @return
@@ -107,33 +91,6 @@ public abstract class EasyActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
             }
         }
-    }
-    // 初始化侧滑菜单
-    public void initSlideMenu() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        mLvLeftMenu.addHeaderView(inflater.inflate(R.layout.nav_header_main, mLvLeftMenu, false));
-        mLvLeftMenu.setAdapter(new SlideItemAdapter(this,mItems));
-        mLvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                drawerLayout.closeDrawers();
-                switch (position) {
-                    case 1:
-                        turnToActivity(MusicActivity.class);
-                        break;
-                    case 2:
-                        turnToActivity(JokeActivity.class);
-                        break;
-                    case 3:
-                        turnToActivity(WeiboActivity.class);
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
-            }
-        });
     }
 
     protected void onResume() {

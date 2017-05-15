@@ -12,6 +12,10 @@
         <include
             android:id="@+id/empty_view"
             layout="@layout/empty_view"></include>
+        <com.liwy.easymusic.views.tabindicator.EasyIndicator
+            android:id="@+id/indictor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.liwy.easymusic.views.tabindicator.EasyIndicator>
 
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/id_swiperefreshlayout"

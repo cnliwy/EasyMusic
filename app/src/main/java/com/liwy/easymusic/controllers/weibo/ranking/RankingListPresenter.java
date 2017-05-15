@@ -19,15 +19,20 @@ import java.util.List;
 
 
 public class RankingListPresenter extends BaseFragmentPresenter<RankingListView> {
+    public static final String SPACE_DAY = "day";
+    public static final String SPACE_WEEK = "week";
+    public static final String SPACE_MONTH = "month";
 
     private List<Weibo> datas = new ArrayList<Weibo>();
     private int currentPage = 1;
     private int allPages;
     WeiboAdapter adapter;
+    public String currentSpace = "";
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        currentSpace = SPACE_DAY;
         initData();
     }
 
@@ -36,7 +41,8 @@ public class RankingListPresenter extends BaseFragmentPresenter<RankingListView>
      */
     public void initData(){
         datas = new ArrayList<Weibo>();
-        getReadWeibos(currentPage,"day",true);
+        currentPage = 1;
+        getReadWeibos(currentPage,currentSpace,true);
     }
 
     /**
@@ -50,6 +56,25 @@ public class RankingListPresenter extends BaseFragmentPresenter<RankingListView>
         getReadWeibos(currentPage,"day",false);
     }
 
+    /**
+     * 天周月榜单
+     * @param index
+     */
+    public void selectRanklistType(int index){
+        switch (index){
+            case 0:
+                currentSpace = SPACE_DAY;
+                break;
+            case 1:
+                currentSpace = SPACE_WEEK;
+                break;
+            case 2:
+                currentSpace = SPACE_MONTH;
+                break;
+        }
+        currentPage = 1;
+        getReadWeibos(currentPage,currentSpace,true);
+    }
     /**
      *
      * @param page //页码
@@ -90,6 +115,10 @@ public class RankingListPresenter extends BaseFragmentPresenter<RankingListView>
         }, mContext, isRefresh));
     }
 
+    /**
+     * item点击事件
+     * @param position
+     */
     public void onItemClick(int position){
         Bundle bundle = new Bundle();
         bundle.putString("url",datas.get(position).getUrl());

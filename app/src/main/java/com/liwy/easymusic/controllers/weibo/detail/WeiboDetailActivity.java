@@ -72,7 +72,6 @@ public class WeiboDetailActivity extends BaseActivity<WeiboDetailPresenter> impl
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-            toolbarTitle.setText(title);
         }
     }
     private class WebListener extends WebViewClient {
